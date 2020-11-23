@@ -1,5 +1,5 @@
 // Now, Testing weather there are any changes between Mac and Window
-
+// Yessss, super great working now !!!!
 
 // =====================================================================
 //  C strings and string functions
