@@ -1,3 +1,6 @@
+// Now, Testing weather there are any changes between Mac and Window
+
+
 // =====================================================================
 //  C strings and string functions
 // =====================================================================
