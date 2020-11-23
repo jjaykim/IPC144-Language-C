@@ -39,3 +39,10 @@ void appendRoomName(struct Room rooms[], int arrSize);
 //    spaces           : 6
 //    numbers          : 0
 void characterSummary(struct Room rooms[], int arrSize);
+
+// 23.11.2020 ADD ***
+// Modify all room names to be uppercase characters
+void roomNamesToUppercase(struct Room rooms[], int arrSize);
+
+// another helper function to "help" with changing to UPPERCASE
+void strToUpper(char* str);

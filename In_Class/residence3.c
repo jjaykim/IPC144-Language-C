@@ -8,6 +8,7 @@
 
 #include "residence3.h"  // <--- user defined libraries/modules/resources
 #include "helper3.h"
+#include "FileHelpers.h"
 
 
 // -----------------------------------------
@@ -168,8 +169,16 @@ void residenceStart(void)
 	// appendRoomName(house.rooms, ROOM_MAX);
 
 	// summary of character types:
-	characterSummary(house.rooms, ROOM_MAX);
+	// characterSummary(house.rooms, ROOM_MAX);
+
+  // 23.11.2020 ADD *** (BELOW)
+
+  // change all room names to UPPERCASE
+  // roomNamesToUppercase(house.rooms, ROOM_MAX);
+
+  // save data to file
+  saveHouseData(&house, ROOM_MAX, 0);
 
 	// display house information:
-	// displayHouseInfo(&house);
+	displayHouseInfo(&house);
 }

@@ -1,5 +1,7 @@
 // 23.11.2020
 
+#ifndef RESIDENCE__H
+#define RESIDENCE__H
 
 #define NAME_SIZE 100
 #define ROOM_MAX 40
@@ -49,3 +51,5 @@ void getRoomInfo(struct Room* box);
 
 // Residence mian hub/driver for logical entry point
 void residenceStart(void);
+
+#endif // !RESIDENCE__H

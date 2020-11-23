@@ -219,3 +219,43 @@ void characterSummary(struct Room rooms[], int arrSize)
   printf("spaces           : %3d\n", sumSpace);
   printf("numbers          : %3d\n", sumNumber);
 }
+
+// 23.11.2020 ADD ***
+// Modify all room names to be uppercase characters
+void roomNamesToUppercase(struct Room rooms[], int arrSize)
+{
+  // variables
+  int i, j;
+
+  // looping each room
+  for ( i = 0; i < arrSize; i++)
+  {
+    // covert room name (c string) to UPPERCASE letters
+    strToUpper(rooms[i].name);
+
+    // replace with strToUpper
+    // // only consider valid room data records
+    // if(rooms[i].name[0] != '\0')
+    // {
+    //   // loop each character in the room name
+    //   for (j = 0; j < strlen(rooms[i].name[j] = '\0'); j++)
+    //   {
+    //     // modify each character to be UPPERCASE
+    //     rooms[i].name[j] = toupper((rooms[i].name[j]));
+    //   }
+    // }
+  }
+}
+
+// covert C string to UPPERCASE characters
+void strToUpper(char *str)
+{
+  int i;
+  
+  // loop each character in the room name
+  for (i = 0; str[i] = '\0'; i++)
+  {
+    // modify each character to be UPPERCASE
+    str[i] = toupper(str[i]);
+  }
+}
