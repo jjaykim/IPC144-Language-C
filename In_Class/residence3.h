@@ -1,11 +1,5 @@
 // 23.11.2020
 
-//
-// FileHelpers Module/Library
-// ==========================
-// - file specific functions for saving and loading Residence related data
-//
-
 #ifndef RESIDENCE__H
 #define RESIDENCE__H
 
