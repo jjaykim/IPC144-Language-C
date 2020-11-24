@@ -180,5 +180,5 @@ void residenceStart(void)
   saveHouseData(&house, ROOM_MAX, 0);
 
 	// display house information:
-	displayHouseInfo(&house);
+	// displayHouseInfo(&house);
 }

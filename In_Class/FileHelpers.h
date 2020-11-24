@@ -1,5 +1,11 @@
 // 23.11.2020
 
+//
+// FileHelpers Module/Library
+// ==========================
+// - file specific functions for saving and loading Residence related data
+//
+
 #include "residence3.h" // for using the struct of House
 
 // House data file (physical file name)

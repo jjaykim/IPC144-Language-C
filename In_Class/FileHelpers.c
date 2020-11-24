@@ -1,5 +1,11 @@
 // 23.11.2020
 
+//
+// FileHelpers Module/Library
+// ==========================
+// - file specific functions for saving and loading Residence related data
+//
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
@@ -59,7 +65,7 @@ int saveHouseData(const struct House* house, int roomArrSize, int isAppend) // A
     puts("");
     printf("%d room records written to file.\n", recCounter);
   }
-  
+
   // if not opened sucessfully (show error)
   else
   {
