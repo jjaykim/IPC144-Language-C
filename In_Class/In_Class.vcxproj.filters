@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="helper3.c">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="residence3.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -27,13 +24,22 @@
     <ClCompile Include="test.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="helper3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileHelpers.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helper3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="residence3.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileHelpers.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
