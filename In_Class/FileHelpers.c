@@ -1,4 +1,4 @@
-// 23.11.2020
+// 25.11.2020 ADD
 
 //
 // FileHelpers Module/Library
@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include "FileHelpers.h"
 
+// Save house data to file (optional to append based on isAppend)
 int saveHouseData(const struct House* house, int roomArrSize, int isAppend) // Append: Adding to the end
 {
   // Variables:
@@ -33,9 +34,14 @@ int saveHouseData(const struct House* house, int roomArrSize, int isAppend) // A
   // if the file was opened sucessfully...
   if (fp != NULL)
   {
+    // 25.11.2020 ADD *** (BELOW) Set up to ADD more room information on FileHelpers.c
+
+    if (! isAppend) // Set up to avoide repeat the main information
+    {
     // write the "house" main member info: houseNumber, streetName, and City
     // use '|' character to delimit each field
-    fprintf(fp, "%d|%s|%s|", house->houseNumber, house->streetName, house->city);
+    fprintf(fp, "%d|%s|%s|\n", house->houseNumber, house->streetName, house->city);
+    }
 
     // loop each room
     for (i = 0; i < roomArrSize; i++)
@@ -63,7 +69,16 @@ int saveHouseData(const struct House* house, int roomArrSize, int isAppend) // A
     // set state to good!
     state = 1;
     puts("");
-    printf("%d room records written to file.\n", recCounter);
+
+    // 25.11.2020 ADD *** (BELOW) Set up to ADD more room information on FileHelpers.c
+    if (isAppend)
+    {
+      printf("%d room records added to file.\n", recCounter);
+    }
+    else
+    {
+      printf("%d room records written to file.\n", recCounter);
+    }
   }
 
   // if not opened sucessfully (show error)
@@ -75,4 +90,70 @@ int saveHouseData(const struct House* house, int roomArrSize, int isAppend) // A
 
   // return write status (ie: sucess/fail)
   return state;
+}
+
+// 25.11.2020 ADD *** (BELOW) 
+// Load house data to file (includes rooms)
+int loadHouseData(const struct House *house, int roomArrSize)
+{
+  // variables:
+  int i, roomCounter = 0, status = 0, result;
+
+  // open file for "read" access:
+  FILE* fp = fopen(FILE_DATA, "r");
+
+  // oh oh falied to open...
+  if (fp == NULL)
+  {
+    printf("ERROR: Unable to open file for reading.\n\n");
+  }
+  else
+  {
+    // read first line of data from file
+    // - house information part (street#, Street Name, City)
+    result = fscanf(fp, "%d|%100[^|]|%100[^\n]\n", &house->houseNumber, house->streetName, house->city);
+
+    // if reading was sucessful ::
+    if (result == 3)
+    {
+      i = 0;
+      // loop each room data until no more...
+      while( fscanf(fp, "%100[^|]|%lf|%lf|%lf\n", house->rooms[i].name,
+                    &house->rooms[i].x, // x, y, z are integer type so they need "&"
+                    &house->rooms[i].y,
+                    &house->rooms[i].z) );
+      {
+        // add to room counter
+        roomCounter++;
+        i++;  // increase iterator
+      }
+      // fflush any unread data
+      fflush(fp);
+
+      // close the file
+      fclose(fp);
+
+      // reset file pointer (safe empty state)
+      fp = NULL;
+
+      // Show # of rooms read...
+      if(roomCounter > 0)
+      {
+      printf("%d rooms read from file!\n\n", roomCounter);
+      status = 1;
+      }
+      else
+      {
+        printf("ERROR: Failed to read house data!\n\n");
+      }
+      
+    }
+    // Reading unsuccesful:: Show an error ::
+    else
+    {
+      printf("ERROR: Failed to read house data!\n\n");
+    }
+  }
+
+  return status;
 }

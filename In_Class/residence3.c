@@ -138,23 +138,34 @@ void getRoomInfo(struct Room* box)
 // Residence mian hub/driver for l ogical entry point
 void residenceStart(void)
 {
-  struct House house = { 100, "Seneca Street", "Toronto",
-                        {
-                          {"Kitchen", 10.0, 12.0, 10.0},
-                          {"Bedroom-1", 11.0, 12.0, 8.0},
-                          {"Bedroom-2", 12.0, 12.0, 8.0},
-                          {"Bedroom-3", 13.0, 12.0, 8.0},
-                          {"Bedroom-4", 14.0, 12.0, 8.0},
-                          {"Bedroom-5", 15.0, 12.0, 8.0},
-                          {"Living Room", 16.0, 12.0, 10.0},
-                          {"Dining Room", 17.0, 12.0, 10.0},
-                          {"Bathroom-1", 8.0, 11.0, 8.0},
-                          {"Bathroom-2", 8.0, 10.0, 8.0}
-                        }     
-                       };
+  struct House house = { 0 };
+  // 25.11.2020 ADD *** (BELOW) Set up to ADD more room information on FileHelpers.c
+  // struct House house = { 100, "Seneca Street", "Toronto", 
+  //                       {
+  //                         {"Study", 10.0, 12.0, 10.0},
+  //                         {"Ballroom", 11.0, 12.0, 8.0},
+  //                         {"Game room", 12.0, 12.0, 8.0},
+  //                         {"Recreation Room", 13.0, 12.0, 8.0},
+  //                       }     
+  //                      };
+
+                      //   struct House house = { 100, "Seneca Street", "Toronto",
+                      //   {
+                      //     {"Kitchen", 10.0, 12.0, 10.0},
+                      //     {"Bedroom-1", 11.0, 12.0, 8.0},
+                      //     {"Bedroom-2", 12.0, 12.0, 8.0},
+                      //     {"Bedroom-3", 13.0, 12.0, 8.0},
+                      //     {"Bedroom-4", 14.0, 12.0, 8.0},
+                      //     {"Bedroom-5", 15.0, 12.0, 8.0},
+                      //     {"Living Room", 16.0, 12.0, 10.0},
+                      //     {"Dining Room", 17.0, 12.0, 10.0},
+                      //     {"Bathroom-1", 8.0, 11.0, 8.0},
+                      //     {"Bathroom-2", 8.0, 10.0, 8.0}
+                      //   }     
+                      //  };
 
   // display house information:
-  displayHouseInfo(&house);
+  // displayHouseInfo(&house);
 
   // test chars count on all room names:
   // displayTotalRoomChars(house.rooms, ROOM_MAX);
@@ -177,7 +188,22 @@ void residenceStart(void)
   // roomNamesToUppercase(house.rooms, ROOM_MAX);
 
   // save data to file
-  saveHouseData(&house, ROOM_MAX, 0);
+
+  // 25.11.2020 ADD *** (BELOW) Set up to ADD more room information on FileHelpers.c
+  // saveHouseData(&house, ROOM_MAX, 0);  // create house record (with rooms)
+  saveHouseData(&house, ROOM_MAX, 1); // append rooms only
+
+  // test loading of data
+  if(loadHouseData(&house, ROOM_MAX))
+  {
+    printf("Sucessfully loaded data!\n\n");
+    displayHouseInfo(&house);
+  }
+  else
+  {
+    printf("ERROR - failed to load house data!\n\n");
+  }
+  
 
 	// display house information:
 	// displayHouseInfo(&house);

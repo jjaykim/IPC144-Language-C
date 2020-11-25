@@ -14,3 +14,6 @@
 // Save house data to file (optional to append based on isAppend)
 int saveHouseData(const struct House* house, int roomArrSize, int isAppend);  // Append: Adding to the end
 
+// 25.11.2020 ADD *** (BELOW) 
+// Load house data to file (includes rooms)
+int loadHouseData(const struct House* house, int roomArrSize);
