@@ -143,7 +143,6 @@
     <ClCompile Include="helper3.c" />
     <ClCompile Include="mainResidence.c" />
     <ClCompile Include="residence3.c" />
-    <ClCompile Include="test.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileHelpers.h" />

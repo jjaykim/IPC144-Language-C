@@ -21,6 +21,7 @@
     <ClCompile Include="mainResidence.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="test.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,6 +31,8 @@
     <ClCompile Include="FileHelpers.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
+>>>>>>> 47ab92776db6c8648bae6c6b2bb2466bf31ea4ad
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helper3.h">
