@@ -138,8 +138,8 @@ void getRoomInfo(struct Room* box)
 // Residence mian hub/driver for l ogical entry point
 void residenceStart(void)
 {
-  struct House house = { 0 };
   // 25.11.2020 ADD *** (BELOW) Set up to ADD more room information on FileHelpers.c
+  struct House house = { 0 };
   // struct House house = { 100, "Seneca Street", "Toronto", 
   //                       {
   //                         {"Study", 10.0, 12.0, 10.0},
@@ -165,7 +165,7 @@ void residenceStart(void)
                       //  };
 
   // display house information:
-  // displayHouseInfo(&house);
+  displayHouseInfo(&house);
 
   // test chars count on all room names:
   // displayTotalRoomChars(house.rooms, ROOM_MAX);
@@ -191,7 +191,7 @@ void residenceStart(void)
 
   // 25.11.2020 ADD *** (BELOW) Set up to ADD more room information on FileHelpers.c
   // saveHouseData(&house, ROOM_MAX, 0);  // create house record (with rooms)
-  saveHouseData(&house, ROOM_MAX, 1); // append rooms only
+  // saveHouseData(&house, ROOM_MAX, 1); // append rooms only
 
   // test loading of data
   if(loadHouseData(&house, ROOM_MAX))

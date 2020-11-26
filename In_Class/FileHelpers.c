@@ -51,10 +51,10 @@ int saveHouseData(const struct House* house, int roomArrSize, int isAppend) // A
         // write the room member info: name, x, y, z
         printf("%s|%lf|%lf|%lf\n", house->rooms[i].name, 
                                    house->rooms[i].x, house->rooms[i].y, house->rooms[i].z);
-      }
 
-      // keep track of written record count
-      recCounter++;
+        // keep track of written record count
+        recCounter++;
+      }
     }
 
     // forces any leftover data to be written NOW.
@@ -94,7 +94,7 @@ int saveHouseData(const struct House* house, int roomArrSize, int isAppend) // A
 
 // 25.11.2020 ADD *** (BELOW) 
 // Load house data to file (includes rooms)
-int loadHouseData(const struct House *house, int roomArrSize)
+int loadHouseData(const struct House* house, int roomArrSize)
 {
   // variables:
   int i, roomCounter = 0, status = 0, result;
@@ -121,7 +121,7 @@ int loadHouseData(const struct House *house, int roomArrSize)
       while( fscanf(fp, "%100[^|]|%lf|%lf|%lf\n", house->rooms[i].name,
                     &house->rooms[i].x, // x, y, z are integer type so they need "&"
                     &house->rooms[i].y,
-                    &house->rooms[i].z) );
+                    &house->rooms[i].z) == 4);
       {
         // add to room counter
         roomCounter++;
@@ -139,8 +139,8 @@ int loadHouseData(const struct House *house, int roomArrSize)
       // Show # of rooms read...
       if(roomCounter > 0)
       {
-      printf("%d rooms read from file!\n\n", roomCounter);
-      status = 1;
+        printf("%d rooms read from file!\n\n", roomCounter);
+        status = 1;
       }
       else
       {
