@@ -38,6 +38,10 @@ void getName(struct Name *name)
     scanf("%6[^\n]", name->middleInitial);
     clearKeyboard();
   }
+  else
+  {
+    name->lastName[0] = '\0'; // Set up to maintain no value
+  }
 
   printf("Please enter the contact's last name: ");
   scanf("%35[^\n]", name->lastName);
@@ -82,12 +86,21 @@ void getNumbers(struct Numbers *numbers)
     printf("Please enter the contact's home phone number: ");
     getTenDigitPhone(numbers->home);
   }
+  else
+  {
+    numbers->home[0] = '\0';  // Set up to maintain no value
+  }
 
   printf("Do you want to enter a business phone number? (y or n): ");
   if (yes() == 1) 
   {
     printf("Please enter the contact's business phone number: ");
     getTenDigitPhone(numbers->business);
+  }
+  else
+  {
+    numbers->business[0] = '\0';  // Set up to maintain no value
+
   }
 }
 
