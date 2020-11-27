@@ -74,23 +74,20 @@ void getAddress(struct Address *address)
 void getNumbers(struct Numbers *numbers)
 {
   printf("Please enter the contact's cell phone number: ");
-  scanf("%10[^\n]", numbers->cell);
-  clearKeyboard();
+  getTenDigitPhone(numbers->cell);
 
   printf("Do you want to enter a home phone number? (y or n): ");
   if (yes() == 1) 
   {
     printf("Please enter the contact's home phone number: ");
-    scanf("%10[^\n]", numbers->home);
-    clearKeyboard();
+    getTenDigitPhone(numbers->home);
   }
 
   printf("Do you want to enter a business phone number? (y or n): ");
   if (yes() == 1) 
   {
     printf("Please enter the contact's business phone number: ");
-    scanf("%10[^\n]", numbers->business);
-    clearKeyboard();
+    getTenDigitPhone(numbers->business);
   }
 }
 

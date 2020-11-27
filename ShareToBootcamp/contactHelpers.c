@@ -10,6 +10,7 @@
 //==============================================
 
 #define _CRT_SECURE_NO_WARNINGS
+#define MAXCONTACTS 5
 
 // +-------------------------------------------------+
 // | NOTE:  Copy/Paste your Assignment-2 Milestone-2 |
@@ -215,27 +216,47 @@ int getPositiveInt(const char *errrMsg)
 void getTenDigitPhone(char phoneNum[])
 {
     int needInput = 1;
+    int i, valid;
 
     while (needInput == 1) 
     {
-        scanf("%10[0-9]s", phoneNum);
-        clearKeyboard();
+      valid = 0;
 
-        // (String Length Function: validate entry of 10 characters)
-        if (strlen(phoneNum) == 10)
+      scanf("%s", phoneNum);
+      clearKeyboard();
+
+      // (String Length Function: validate entry of 10 characters)
+      for (i = 0; i < 10; i++)
+      {
+        if (!isdigit(phoneNum[i]))
         {
-            needInput = 0;
+          valid++;
         }
-        else
-        {
-            printf("Enter a 10-digit phone number: ");
-        }
+      }
+
+      if (strlen(&phoneNum) == 10 && valid == 0)
+      {
+        needInput = 0;
+      }
+      else
+      {
+        printf("Enter a 10-digit phone number: ");
+      }
     }
 }
 
 // findContactIndex:
 int findContactIndex(const struct Contact contacts[], int size, const char cellNum[])
 {
+  int valid;
+
+  for(valid = 0; valid < size; valid++)
+  {
+    if(strcmp(contacts[valid].number.cell, cellNum[valid]) == 0)
+    {
+      return valid;
+    }
+  }
     return -1;
 }
 
