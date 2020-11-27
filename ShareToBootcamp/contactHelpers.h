@@ -66,8 +66,7 @@ int getPositiveInt(const char *errrMsg);
 void getTenDigitPhone(char phoneNum[]);
 
 // findContactIndex (provided for you)
-int findContactIndex(const struct Contact contacts[], int size, const char cellNum[]);
-
+// int findContactIndex(const struct Contact contacts[], int size, const char cellNum[]);
 
 // displayContactHeader
 // put function prototype here:
@@ -75,15 +74,15 @@ void displayContactHeader(void);
 
 // displayContactFooter:
 // put function prototype here:
-void displayContactHeader(void);
+void displayContactFooter(int count);
 
 // displayContact:
 // put function prototype here:
-void displayContactFooter(int count);
+void displayContact(const struct Contact *contact);
 
 // displayContacts:
 // put function prototype here:
-void displayContact(const struct Contact *contact);
+void displayContacts(const struct Contact contacts[], int size);
 
 // searchContacts:
 // put function prototype here:

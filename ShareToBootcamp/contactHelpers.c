@@ -21,6 +21,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "contactHelpers.h"
+#include "contacts.h"
 
 // clearKeyboard:  Empty function definition
 void clearKeyboard(void)
@@ -117,7 +118,26 @@ int menu(void)
 // contactManagerSystem: Empty function definition goes here:
 void contactManagerSystem(void)
 {
-  int valid = 0; 
+  int valid = 0;
+
+  struct Contact contacts[MAXCONTACTS] =
+      {
+          {{"Rick", {'\0'}, "Grimes"},
+           {11, "Trailer Park", 0, "A7A 2J2", "King City"},
+           {"4161112222", "4162223333", "4163334444"}},
+
+          {{"Maggie", "R.", "Greene"}, 
+          {55, "Hightop House", 0, "A9A 3K3", "Bolton"}, 
+          {"9051112222", "9052223333", "9053334444"}},
+
+          {{"Morgan", "A.", "Jones"}, 
+          {77, "Cottage Lane", 0, "C7C 9Q9", "Peterborough"}, 
+          {"7051112222", "7052223333", "7053334444"}},
+
+          {{"Sasha", {'\0'}, "Williams"}, 
+          {55, "Hightop House", 0, "A9A 3K3", "Bolton"}, 
+          {"9052223333", "9052223333", "9054445555"}},
+      };
 
   do
   {
@@ -132,42 +152,42 @@ void contactManagerSystem(void)
 
     case 1:
       puts("");
-      puts("<<< Feature 1 is unavailable >>>\n");
+      displayContacts(contacts, MAXCONTACTS);
       pause();
       puts("");
       break;
 
     case 2:
       puts("");
-      puts("<<< Feature 2 is unavailable >>>\n");
+      addContact(contacts, MAXCONTACTS);
       pause();
       puts("");
       break;
 
     case 3:
       puts("");
-      puts("<<< Feature 3 is unavailable >>>\n");
+      updateContact(contacts, MAXCONTACTS);
       pause();
       puts("");
       break;
 
     case 4:
       puts("");
-      puts("<<< Feature 4 is unavailable >>>\n");
+      deleteContact(contacts, MAXCONTACTS);
       pause();
       puts("");
       break;
 
     case 5:
       puts("");
-      puts("<<< Feature 5 is unavailable >>>\n");
+      searchContacts(contacts, MAXCONTACTS);
       pause();
       puts("");
       break;
 
     case 6:
       puts("");
-      puts("<<< Feature 6 is unavailable >>>\n");
+      sortContacts(contacts, MAXCONTACTS);
       pause();
       puts("");
       break;
@@ -249,13 +269,13 @@ void getTenDigitPhone(char phoneNum[])
 // findContactIndex:
 int findContactIndex(const struct Contact contacts[], int size, const char cellNum[])
 {
-  int i;
+  int valid;
 
-  for(i = 0; i < size; i++)
+  for (valid = 0; valid < size; valid++)
   {
-    if(strcmp(contacts, cellNum) == 0)
+    if (strcmp(contacts[valid].numbers.cell, cellNum) == 0)
     {
-      return i;
+      return valid;
     }
   }
     return -1;
@@ -264,43 +284,175 @@ int findContactIndex(const struct Contact contacts[], int size, const char cellN
 
 // displayContactHeader
 // Put empty function definition below:
-
-
+void displayContactHeader(void)
+{
+  printf("+-----------------------------------------------------------------------------+\n");
+  printf("|                              Contacts Listing                               |\n");
+  printf("+-----------------------------------------------------------------------------+\n");
+}
 
 // displayContactFooter
 // Put empty function definition below:
-
-
+void displayContactFooter(int count)
+{
+  printf("+-----------------------------------------------------------------------------+\n");
+  printf("Total contacts: %d\n\n", count);
+}
 
 // displayContact:
 // Put empty function definition below:
-
-
+void displayContact(const struct Contact *contact)
+{
+  printf(" %s", contact->name.firstName);
+  if(strlen(contact->name.middleInitial) != 0)
+  {
+    printf(" %s", contact->name.middleInitial);
+  }
+  printf(" %s\n", contact->name.lastName);
+  printf("    C: %-10s   H: %-10s   B: %-10s\n", contact->numbers.cell, contact->numbers.home, contact->numbers.business);
+  printf("       %d %s, ", contact->address.streetNumber, contact->address.street);
+  if(contact->address.apartmentNumber > 0)
+  {
+    printf("Apt# %d, ", contact->address.apartmentNumber);
+  }
+  printf("%s, %s\n", contact->address.city, contact->address.postalCode);
+}
 
 // displayContacts:
 // Put empty function definition below:
+void displayContacts(const struct Contact contacts[], int size)
+{
+  int i, totalContacts = 0;
 
-
+  for(i = 0; i < size; i++)
+  {
+    if (strlen(contacts[i].numbers.cell > 0))
+    {
+      displayContact(&contacts[i]);
+      totalContacts++;
+    }
+  }
+  displayContactFooter(totalContacts);
+}
 
 // searchContacts:
 // Put empty function definition below:
+void searchContacts(const struct Contact contacts[], int size)
+{
+  int searchNum;
+  char inputNum[11];
 
+  printf("Enter the cell number for the contact: ");
+  getTenDigitPhone(inputNum);
 
+  searchNum = findContactIndex(contacts, size, inputNum);
+  if (searchNum == -1)
+  {
+    printf("*** Contact NOT FOUND ***\n");
+  }
+  else
+  {
+    displayContact(&contacts[searchNum]);
+    puts("");
+  }
+}
 
 // addContact:
 // Put empty function definition below:
-
-
+void addContact(struct Contact contacts[], int size)
+{
+  int addCont;
+  
+  addCont = findContactIndex(contacts, size, '\0');
+  if(addCont != -1)
+  {
+    getContact(&contacts[addCont]);
+    printf("--- New contact added! ---\n");
+  }
+  else
+  {
+    printf("*** ERROR: The contact list is full! ***\n");
+  }
+}
 
 // updateContact:
 // Put empty function definition below:
+void updateContact(struct Contact contacts[], int size)
+{
+  int updateCont;
+  char inputNum[11];
 
+  printf("Enter the cell number for the contact: ");
+  getTenDigitPhone(inputNum);
 
+  updateCont = findContactIndex(contacts, size, inputNum);
+  if(updateCont != -1)
+  {
+    printf("Contact found:\n");
+    displayContact(&contacts[updateCont]);
+    puts("");
+    printf("Do you want to update the name? (y or n): ");
+    if (yes() == 1)
+    {
+      getName(&contacts[updateCont].name);
+    }
+    printf("Do you want to update the address? (y or n): ");
+    if (yes() == 1)
+    {
+      getAddress(&contacts[updateCont].address);
+    }
+    printf("Do you want to update the numbers? (y or n): ");
+    if (yes() == 1)
+    {
+      getNumbers(&contacts[updateCont].numbers);
+    }
+    printf("--- Contact Updated! ---\n");
+  } 
+}
 
 // deleteContact:
 // Put empty function definition below:
+void deleteContact(struct Contact contacts[], int size)
+{
+  int deleNum;
+  char inputNum[11];
 
+  printf("Enter the cell number for the contact: ");
+  getTenDigitPhone(inputNum);
 
+  deleNum = findContactIndex(contacts, size, inputNum);
+  if(deleNum != -1)
+  {
+    printf("Contact found:\n");
+    displayContact(&contacts[deleNum]);
+    puts("");
+    printf("CONFIRM: Delete this contact? (y or n): ");
+    if (yes() == 1)
+    {
+      contacts[deleNum].numbers.cell[0] = '\0';
+    }
+    printf("--- Contact deleted! ---");
+  }
+}
 
 // sortContacts:
 // Put empty function definition below:
+void sortContacts(struct Contact contacts[], int size)
+{
+  int i, j, z;
+  struct Contact sortCon;
+
+  for (i = 0; i < size; i++)
+  {
+    for (j = i + 1; j < size; j++)
+    {
+      if (strcmp(contacts[i].numbers.cell, contacts[j].numbers.cell) > 0)
+      {
+        sortCon = contacts[i];
+        contacts[i] = contacts[j];
+        contacts[j] = sortCon;
+      }
+    }
+  }
+  printf("---Contacts sorted! ---\n");
+}
