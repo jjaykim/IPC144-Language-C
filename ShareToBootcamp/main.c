@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "contactHelpers.h"
 #include "contacts.h"
 
@@ -30,7 +31,7 @@ int main(void)
       }
     }
 
-    if (strlen(&phoneNum) == 10 && valid == 0)
+    if (strlen(phoneNum) == 10 && valid == 0)
     {
         needInput = 0;
     }

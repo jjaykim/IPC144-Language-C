@@ -19,6 +19,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "contactHelpers.h"
 
 // clearKeyboard:  Empty function definition
@@ -234,7 +235,7 @@ void getTenDigitPhone(char phoneNum[])
         }
       }
 
-      if (strlen(&phoneNum) == 10 && valid == 0)
+      if (strlen(phoneNum) == 10 && valid == 0)
       {
         needInput = 0;
       }
@@ -248,13 +249,13 @@ void getTenDigitPhone(char phoneNum[])
 // findContactIndex:
 int findContactIndex(const struct Contact contacts[], int size, const char cellNum[])
 {
-  int valid;
+  int i;
 
-  for(valid = 0; valid < size; valid++)
+  for(i = 0; i < size; i++)
   {
-    if(strcmp(contacts[valid].number.cell, cellNum[valid]) == 0)
+    if(strcmp(contacts, cellNum) == 0)
     {
-      return valid;
+      return i;
     }
   }
     return -1;
