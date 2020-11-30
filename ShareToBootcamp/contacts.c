@@ -40,7 +40,7 @@ void getName(struct Name *name)
   }
   else
   {
-    name->lastName[0] = '\0'; // Set up to maintain no value
+    name->lastName[0] = '\0'; // Set up to maintain with no value
   }
 
   printf("Please enter the contact's last name: ");
@@ -88,7 +88,7 @@ void getNumbers(struct Numbers *numbers)
   }
   else
   {
-    numbers->home[0] = '\0';  // Set up to maintain no value
+    numbers->home[0] = '\0';  // Set up to maintain with no value
   }
 
   printf("Do you want to enter a business phone number? (y or n): ");
@@ -99,7 +99,7 @@ void getNumbers(struct Numbers *numbers)
   }
   else
   {
-    numbers->business[0] = '\0';  // Set up to maintain no value
+    numbers->business[0] = '\0';  // Set up to maintain with no value
 
   }
 }
