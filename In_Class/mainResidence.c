@@ -3,38 +3,28 @@
 
 // =====================================================================
 //  C strings and string functions
+//  November 30, 2020
 // =====================================================================
 // HOMEWORK:
 //
 // Create the below functions in the helper module that does the following:
 //
-// 1. Modify all room names to be uppercase characters
-//    Prototype: void roomNamesToUppercase(struct Room rooms[], int arrSize);
-// 
-//
-// 2. Add Another module called "fileHelpers" (with respective .h and .c files)
-//
-// NOTE:
-//    All data will be either written to or read from a data file called:
-//    "houseData.dat"
-//
-//    Hint: Create a macro that represents this file name and use the macro
-//          when accessing the data file
-//
-// 3. Create a function that will WRITE or APPEND to a text file all the data of a 
-//    struct House type.  Use a pipe character '|' as a field delimeter.  The
+// 3. Create a function that will WRITE or APPEND to a text file all the data of a
+//    struct House type.  Use a pipe character '|' as a field delimiter.  The
 //    function will return 1 for successful, and 0 for an error.
 //    The function should display the # of successfully written room records.
 //
 //    Prototype:
 //    int saveHouseData(const struct House* house, int roomArrSize, int isAppend);
 //
-// NOTE:
+//    NOTE:
 //    If the "isAppend" value is 1, then append data to the file, otherwise,
 //    recreate (overwrite) the file with new data
 //
+// ## DONE ###
+//
 // 4. Create a function that will READ from a text file all the data of a
-//    struct House type.  Assume a pipe character '|' as a field delimeter.
+//    struct House type.  Assume a pipe character '|' as a field delimiter.
 //    The function will return 1 for success, 0 for error.
 //    The function should display the # of successfully read room records.
 //
@@ -42,7 +32,6 @@
 //    int loadHouseData(const struct House* house, int roomArrSize);
 //
 //---------------------------------------------------------------------------
-
 
 #define _CRT_SECURE_NO_WARNINGS
 
