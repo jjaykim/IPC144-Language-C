@@ -127,22 +127,22 @@ void contactManagerSystem(void)
            {11, "Trailer Park", 0, "A7A 2J2", "King City"},
            {"4161112222", "4162223333", "4163334444"}},
 
-          {{"Maggie", "R.", "Greene"}, 
-          {55, "Hightop House", 0, "A9A 3K3", "Bolton"}, 
-          {"9051112222", "9052223333", "9053334444"}},
+          {{"Maggie", "R.", "Greene"},
+           {55, "Hightop House", 0, "A9A 3K3", "Bolton"},
+           {"9051112222", "9052223333", "9053334444"}},
 
-          {{"Morgan", "A.", "Jones"}, 
-          {77, "Cottage Lane", 0, "C7C 9Q9", "Peterborough"}, 
-          {"7051112222", "7052223333", "7053334444"}},
+          {{"Morgan", "A.", "Jones"},
+           {77, "Cottage Lane", 0, "C7C 9Q9", "Peterborough"},
+           {"7051112222", "7052223333", "7053334444"}},
 
-          {{"Sasha", {'\0'}, "Williams"}, 
-          {55, "Hightop House", 0, "A9A 3K3", "Bolton"}, 
-          {"9052223333", "9052223333", "9054445555"}},
+          {{"Sasha", {'\0'}, "Williams"},
+           {55, "Hightop House", 0, "A9A 3K3", "Bolton"},
+           {"9052223333", "9052223333", "9054445555"}},
       };
 
   do
   {
-    switch (menu()) 
+    switch (menu())
     {
     case 0:
       puts("");
@@ -237,61 +237,60 @@ int getPositiveInt(const char *errrMsg)
 // ---------------------------------------------------------------------------------
 void getTenDigitPhone(char phoneNum[])
 {
-    int needInput = 1;
-    int i, valid;
+  int i;
+  int needInput = 1, valid = 0;
 
-    while (needInput == 1) 
+  while (needInput == 1)
+  {
+
+    scanf("%s", phoneNum);
+    clearKeyboard();
+
+    // (String Length Function: validate entry of 10 characters)
+    if (strlen(phoneNum) == 10)
     {
-      valid = 0;
-
-      scanf("%s", phoneNum);
-      clearKeyboard();
-
-      // (String Length Function: validate entry of 10 characters)
-      if (strlen(phoneNum) == 10)
+      // Set up to check whether 10 numeric characters or not
+      for (i = 0; i < 10; i++)
       {
-        // Set up to check whether 10 numeric characters or not
-        for (i = 0; i < 10; i++)
+        if (!isdigit(phoneNum[i]))
         {
-          if (!isdigit(phoneNum[i]))
-          {
-            valid++;
-          }
+          valid++;
         }
+      }
 
-        if (valid == 0)
-        {
-          needInput = 0;
-        }
-        else
-        {
-          printf("Enter a 10-digit phone number: ");
-        }
+      if (valid == 0)
+      {
+        needInput = 0;
       }
       else
       {
         printf("Enter a 10-digit phone number: ");
+        valid = 0;
       }
     }
+    else
+    {
+      printf("Enter a 10-digit phone number: ");
+    }
+  }
 }
 
 // findContactIndex:
 int findContactIndex(const struct Contact contacts[], int size, const char cellNum[])
 {
-  int valid;
+  int i, contactIndex = -1;
 
   // Set up to find the matched cellphone number between provided and original numbers
-  for (valid = 0; valid < size; valid++)
+  for (i = 0; i < size; i++)
   {
     // strcmp: returns 0 when exactly the same  <=== behaves the same on all platforms
-    if (strcmp(contacts[valid].numbers.cell, cellNum) == 0)
+    if (strcmp(contacts[i].numbers.cell, cellNum) == 0)
     {
-      return valid;
+      contactIndex = i;
     }
   }
-    return -1;
+  return contactIndex;
 }
-
 
 // displayContactHeader
 // Put empty function definition below:
@@ -307,7 +306,7 @@ void displayContactHeader(void)
 void displayContactFooter(int count)
 {
   puts("+-----------------------------------------------------------------------------+");
-  printf("Total contacts: %d\n\n", count);
+  printf("Total contacts: %d\n", count);
 }
 
 // displayContact:
@@ -315,19 +314,19 @@ void displayContactFooter(int count)
 void displayContact(const struct Contact *contact)
 {
   printf(" %s", contact->name.firstName);
-    if(strlen(contact->name.middleInitial) > 0)
+  if (strlen(contact->name.middleInitial) > 0)
   {
     printf(" %s", contact->name.middleInitial);
   }
   printf(" %s\n", contact->name.lastName);
-  
+
   printf("    C: %-10s   H: %-10s   B: %-10s\n", contact->numbers.cell, contact->numbers.home, contact->numbers.business);
   printf("       %d %s, ", contact->address.streetNumber, contact->address.street);
-  if(contact->address.apartmentNumber > 0)
+  if (contact->address.apartmentNumber > 0)
   {
     printf("Apt# %d, ", contact->address.apartmentNumber);
   }
-  
+
   printf("%s, %s\n", contact->address.city, contact->address.postalCode);
 }
 
@@ -340,7 +339,7 @@ void displayContacts(const struct Contact contacts[], int size)
   displayContactHeader();
 
   // Set up to check the valid information
-  for(i = 0; i < size; i++)
+  for (i = 0; i < size; i++)
   {
     if (strlen(contacts[i].numbers.cell) > 0)
     {
@@ -356,7 +355,7 @@ void displayContacts(const struct Contact contacts[], int size)
 void searchContacts(const struct Contact contacts[], int size)
 {
   int searchNum;
-  char inputNum[11] = { '\0' };
+  char inputNum[11] = {'\0'};
 
   printf("Enter the cell number for the contact: ");
   getTenDigitPhone(inputNum);
@@ -378,10 +377,10 @@ void searchContacts(const struct Contact contacts[], int size)
 void addContact(struct Contact contacts[], int size)
 {
   int addCont;
-  char newContact[11] = { '\0' };
-  
+  char newContact[11] = {'\0'};
+
   addCont = findContactIndex(contacts, size, newContact);
-  if(addCont != -1)
+  if (addCont != -1)
   {
     getContact(&contacts[addCont]);
     puts("--- New contact added! ---");
@@ -397,13 +396,13 @@ void addContact(struct Contact contacts[], int size)
 void updateContact(struct Contact contacts[], int size)
 {
   int updateCont;
-  char inputNum[11] = { '\0' };
+  char inputNum[11] = {'\0'};
 
   printf("Enter the cell number for the contact: ");
   getTenDigitPhone(inputNum);
 
   updateCont = findContactIndex(contacts, size, inputNum);
-  if(updateCont != -1)
+  if (updateCont != -1)
   {
     puts("");
     puts("Contact found:");
@@ -414,13 +413,13 @@ void updateContact(struct Contact contacts[], int size)
     {
       getName(&contacts[updateCont].name);
     }
-    
+
     printf("Do you want to update the address? (y or n): ");
     if (yes() == 1)
     {
       getAddress(&contacts[updateCont].address);
     }
-    
+
     printf("Do you want to update the numbers? (y or n): ");
     if (yes() == 1)
     {
@@ -439,13 +438,13 @@ void updateContact(struct Contact contacts[], int size)
 void deleteContact(struct Contact contacts[], int size)
 {
   int deleNum;
-  char inputNum[11] = { '\0' };
+  char inputNum[11] = {'\0'};
 
   printf("Enter the cell number for the contact: ");
   getTenDigitPhone(inputNum);
 
   deleNum = findContactIndex(contacts, size, inputNum);
-  if(deleNum != -1)
+  if (deleNum != -1)
   {
     puts("");
     puts("Contact found:");
@@ -455,7 +454,7 @@ void deleteContact(struct Contact contacts[], int size)
     if (yes() == 1)
     {
       contacts[deleNum].numbers.cell[0] = '\0';
-      puts("--- Contact deleted! ---\n");
+      puts("--- Contact deleted! ---");
     }
   }
 }
@@ -479,5 +478,5 @@ void sortContacts(struct Contact contacts[], int size)
       }
     }
   }
-  printf("--- Contacts sorted! ---\n");
+  puts("--- Contacts sorted! ---");
 }
