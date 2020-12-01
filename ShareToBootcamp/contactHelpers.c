@@ -452,11 +452,9 @@ void deleteContact(struct Contact contacts[], int size)
     if (yes() == 1)
     {
       contacts[deleNum].numbers.cell[0] = '\0';
+      puts("--- Contact deleted! ---\n");
     }
-  }
-  else
-  {
-    puts("--- Contact deleted! ---\n");
+    puts("");
   }
 }
 
