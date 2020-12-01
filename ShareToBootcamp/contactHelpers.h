@@ -3,10 +3,10 @@
 // Student Number: 162  641 195
 // Email:          jkim594@myseneca.ca
 // Section:        NNN
-// Date:           2020. 11. 28
+// Date:           2020. 12.01
 //==============================================
 // Assignment:     2
-// Milestone:      3
+// Milestone:      4
 //==============================================
 
 // +-------------------------------------------------+
@@ -66,7 +66,7 @@ int getPositiveInt(const char *errrMsg);
 void getTenDigitPhone(char phoneNum[]);
 
 // findContactIndex (provided for you)
-// int findContactIndex(const struct Contact contacts[], int size, const char cellNum[]);
+ int findContactIndex(const struct Contact contacts[], int size, const char cellNum[]);
 
 // displayContactHeader
 // put function prototype here:

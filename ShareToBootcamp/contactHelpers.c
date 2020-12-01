@@ -3,10 +3,10 @@
 // Student Number: 162  641 195
 // Email:          jkim594@myseneca.ca
 // Section:        NNN
-// Date:           2020. 11. 28
+// Date:           2020. 12.01
 //==============================================
 // Assignment:     2
-// Milestone:      3
+// Milestone:      4
 //==============================================
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -460,7 +460,7 @@ void deleteContact(struct Contact contacts[], int size)
 // Put empty function definition below:
 void sortContacts(struct Contact contacts[], int size)
 {
-  int i, j, z;
+  int i, j;
   struct Contact sortCon;
 
   for (i = 0; i < size; i++)
