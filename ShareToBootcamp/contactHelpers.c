@@ -262,6 +262,10 @@ void getTenDigitPhone(char phoneNum[])
         {
           needInput = 0;
         }
+        else
+        {
+          printf("Enter a 10-digit phone number: ");
+        }
       }
       else
       {
