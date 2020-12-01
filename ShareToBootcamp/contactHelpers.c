@@ -35,6 +35,7 @@ void clearKeyboard(void)
 // pause: Empty function definition goes here:
 void pause(void)
 {
+  puts("");
   printf("(Press Enter to Continue)");
   clearKeyboard();
 }
@@ -363,12 +364,12 @@ void searchContacts(const struct Contact contacts[], int size)
   searchNum = findContactIndex(contacts, size, inputNum);
   if (searchNum != -1)
   {
-    displayContact(&contacts[searchNum]);
     puts("");
+    displayContact(&contacts[searchNum]);
   }
   else
   {
-    puts("*** Contact NOT FOUND ***\n");
+    puts("*** Contact NOT FOUND ***");
   }
 }
 
@@ -383,11 +384,11 @@ void addContact(struct Contact contacts[], int size)
   if(addCont != -1)
   {
     getContact(&contacts[addCont]);
-    puts("--- New contact added! ---\n");
+    puts("--- New contact added! ---");
   }
   else
   {
-    puts("*** ERROR: The contact list is full! ***\n");
+    puts("*** ERROR: The contact list is full! ***");
   }
 }
 
@@ -404,6 +405,7 @@ void updateContact(struct Contact contacts[], int size)
   updateCont = findContactIndex(contacts, size, inputNum);
   if(updateCont != -1)
   {
+    puts("");
     puts("Contact found:");
     displayContact(&contacts[updateCont]);
     puts("");
@@ -424,7 +426,7 @@ void updateContact(struct Contact contacts[], int size)
     {
       getNumbers(&contacts[updateCont].numbers);
     }
-    puts("--- Contact Updated! ---\n");
+    puts("--- Contact Updated! ---");
   }
   else
   {
@@ -445,6 +447,7 @@ void deleteContact(struct Contact contacts[], int size)
   deleNum = findContactIndex(contacts, size, inputNum);
   if(deleNum != -1)
   {
+    puts("");
     puts("Contact found:");
     displayContact(&contacts[deleNum]);
     puts("");
@@ -454,7 +457,6 @@ void deleteContact(struct Contact contacts[], int size)
       contacts[deleNum].numbers.cell[0] = '\0';
       puts("--- Contact deleted! ---\n");
     }
-    puts("");
   }
 }
 
@@ -478,5 +480,4 @@ void sortContacts(struct Contact contacts[], int size)
     }
   }
   printf("---Contacts sorted! ---\n");
-  puts("");
 }
