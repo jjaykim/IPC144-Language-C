@@ -479,5 +479,5 @@ void sortContacts(struct Contact contacts[], int size)
       }
     }
   }
-  printf("---Contacts sorted! ---\n");
+  printf("--- Contacts sorted! ---\n");
 }

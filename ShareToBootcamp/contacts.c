@@ -40,7 +40,7 @@ void getName(struct Name *name)
   }
   else
   {
-    name->lastName[0] = '\0'; // Set up to maintain with no value
+    name->middleInitial[0] = '\0'; // Set up to maintain with no value
   }
 
   printf("Please enter the contact's last name: ");
