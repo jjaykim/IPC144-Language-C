@@ -9,12 +9,13 @@
 // Milestone:      4
 //==============================================
 
-#include "contacts.h"
 
 // +-------------------------------------------------+
 // | NOTE:  Copy/Paste your Assignment-2 Milestone-2 |
 // |        contents below...                        |
 // +-------------------------------------------------+
+
+#include "contacts.h"
 
 // Clear the standard input buffer
 void clearKeyboard(void);

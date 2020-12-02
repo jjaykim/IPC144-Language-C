@@ -21,6 +21,7 @@
 // +-----------------------------------------------------+
 
 #include <stdio.h>
+
 #include "contacts.h"
 #include "contactHelpers.h"
 

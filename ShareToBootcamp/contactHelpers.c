@@ -20,8 +20,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+
 #include "contactHelpers.h"
-#include "contacts.h"
 
 // clearKeyboard:  Empty function definition
 void clearKeyboard(void)
@@ -314,6 +314,8 @@ void displayContactFooter(int count)
 void displayContact(const struct Contact *contact)
 {
   printf(" %s", contact->name.firstName);
+
+  // Checking if there is middlenInitial or not
   if (strlen(contact->name.middleInitial) > 0)
   {
     printf(" %s", contact->name.middleInitial);
@@ -322,6 +324,8 @@ void displayContact(const struct Contact *contact)
 
   printf("    C: %-10s   H: %-10s   B: %-10s\n", contact->numbers.cell, contact->numbers.home, contact->numbers.business);
   printf("       %d %s, ", contact->address.streetNumber, contact->address.street);
+
+  // Checking if there is apartmentNumber or not
   if (contact->address.apartmentNumber > 0)
   {
     printf("Apt# %d, ", contact->address.apartmentNumber);
@@ -360,6 +364,7 @@ void searchContacts(const struct Contact contacts[], int size)
   printf("Enter the cell number for the contact: ");
   getTenDigitPhone(inputNum);
 
+  // Checking if the inputted cell number is valid or not
   searchNum = findContactIndex(contacts, size, inputNum);
   if (searchNum != -1)
   {
@@ -379,6 +384,7 @@ void addContact(struct Contact contacts[], int size)
   int addCont;
   char newContact[11] = {'\0'};
 
+  // Checking if there is empty space or not
   addCont = findContactIndex(contacts, size, newContact);
   if (addCont != -1)
   {
@@ -401,13 +407,16 @@ void updateContact(struct Contact contacts[], int size)
   printf("Enter the cell number for the contact: ");
   getTenDigitPhone(inputNum);
 
+  // Checking if the inputted cell number is valid or not
   updateCont = findContactIndex(contacts, size, inputNum);
   if (updateCont != -1)
   {
     puts("");
     puts("Contact found:");
+
     displayContact(&contacts[updateCont]);
     puts("");
+
     printf("Do you want to update the name? (y or n): ");
     if (yes() == 1)
     {
@@ -443,6 +452,7 @@ void deleteContact(struct Contact contacts[], int size)
   printf("Enter the cell number for the contact: ");
   getTenDigitPhone(inputNum);
 
+  // Checking if the inputted cell number is valid or not
   deleNum = findContactIndex(contacts, size, inputNum);
   if (deleNum != -1)
   {
@@ -453,6 +463,7 @@ void deleteContact(struct Contact contacts[], int size)
     printf("CONFIRM: Delete this contact? (y or n): ");
     if (yes() == 1)
     {
+      // Set up to maintain with no value
       contacts[deleNum].numbers.cell[0] = '\0';
       puts("--- Contact deleted! ---");
     }
@@ -461,6 +472,8 @@ void deleteContact(struct Contact contacts[], int size)
 
 // sortContacts:
 // Put empty function definition below:
+// Bublle Sorthing
+// reorders the elements in the contacts array from lowest to highest based on the cell phone numbers
 void sortContacts(struct Contact contacts[], int size)
 {
   int i, j;
