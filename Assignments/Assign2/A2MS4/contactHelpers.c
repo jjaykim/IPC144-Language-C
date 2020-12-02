@@ -122,23 +122,23 @@ void contactManagerSystem(void)
   int valid = 0;
 
   struct Contact contacts[MAXCONTACTS] =
-      {
-          {{"Rick", {'\0'}, "Grimes"},
-           {11, "Trailer Park", 0, "A7A 2J2", "King City"},
-           {"4161112222", "4162223333", "4163334444"}},
+  {
+      {{"Rick", {'\0'}, "Grimes"},
+       {11, "Trailer Park", 0, "A7A 2J2", "King City"},
+       {"4161112222", "4162223333", "4163334444"}},
 
-          {{"Maggie", "R.", "Greene"},
-           {55, "Hightop House", 0, "A9A 3K3", "Bolton"},
-           {"9051112222", "9052223333", "9053334444"}},
+      {{"Maggie", "R.", "Greene"},
+      {55, "Hightop House", 0, "A9A 3K3", "Bolton"},
+      {"9051112222", "9052223333", "9053334444"}},
 
-          {{"Morgan", "A.", "Jones"},
-           {77, "Cottage Lane", 0, "C7C 9Q9", "Peterborough"},
-           {"7051112222", "7052223333", "7053334444"}},
+      {{"Morgan", "A.", "Jones"},
+      {77, "Cottage Lane", 0, "C7C 9Q9", "Peterborough"},
+      {"7051112222", "7052223333", "7053334444"}},
 
-          {{"Sasha", {'\0'}, "Williams"},
-           {55, "Hightop House", 0, "A9A 3K3", "Bolton"},
-           {"9052223333", "9052223333", "9054445555"}},
-      };
+      {{"Sasha", {'\0'}, "Williams"},
+      {55, "Hightop House", 0, "A9A 3K3", "Bolton"},
+      {"9052223333", "9052223333", "9054445555"}},
+  };
 
   do
   {
@@ -206,7 +206,7 @@ void contactManagerSystem(void)
 // Creat to check valid and positive integer at one time
 //--------------------------------
 
-int getPositiveInt(const char *errrMsg)
+int getPositiveInt(const char* errrMsg)
 {
   int validInt = getInt();
 
@@ -292,6 +292,7 @@ int findContactIndex(const struct Contact contacts[], int size, const char cellN
   return contactIndex;
 }
 
+
 // displayContactHeader
 // Put empty function definition below:
 void displayContactHeader(void)
@@ -307,11 +308,12 @@ void displayContactFooter(int count)
 {
   puts("+-----------------------------------------------------------------------------+");
   printf("Total contacts: %d\n", count);
+
 }
 
 // displayContact:
 // Put empty function definition below:
-void displayContact(const struct Contact *contact)
+void displayContact(const struct Contact* contact)
 {
   printf(" %s", contact->name.firstName);
 
@@ -359,7 +361,7 @@ void displayContacts(const struct Contact contacts[], int size)
 void searchContacts(const struct Contact contacts[], int size)
 {
   int searchNum;
-  char inputNum[11] = {'\0'};
+  char inputNum[11] = { '\0' };
 
   printf("Enter the cell number for the contact: ");
   getTenDigitPhone(inputNum);
@@ -382,7 +384,7 @@ void searchContacts(const struct Contact contacts[], int size)
 void addContact(struct Contact contacts[], int size)
 {
   int addCont;
-  char newContact[11] = {'\0'};
+  char newContact[11] = { '\0' };
 
   // Checking if there is empty space or not
   addCont = findContactIndex(contacts, size, newContact);
@@ -402,7 +404,7 @@ void addContact(struct Contact contacts[], int size)
 void updateContact(struct Contact contacts[], int size)
 {
   int updateCont;
-  char inputNum[11] = {'\0'};
+  char inputNum[11] = { '\0' };
 
   printf("Enter the cell number for the contact: ");
   getTenDigitPhone(inputNum);
@@ -416,7 +418,7 @@ void updateContact(struct Contact contacts[], int size)
 
     displayContact(&contacts[updateCont]);
     puts("");
-
+    
     printf("Do you want to update the name? (y or n): ");
     if (yes() == 1)
     {
@@ -447,7 +449,7 @@ void updateContact(struct Contact contacts[], int size)
 void deleteContact(struct Contact contacts[], int size)
 {
   int deleNum;
-  char inputNum[11] = {'\0'};
+  char inputNum[11] = { '\0' };
 
   printf("Enter the cell number for the contact: ");
   getTenDigitPhone(inputNum);

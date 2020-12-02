@@ -74,16 +74,16 @@ struct Contact
 // +-------------------------------------------------+
 
 // Get and store from standard input the values for Name
-void getName(struct Name *name);
+void getName(struct Name* name);
 
 // Get and store from standard input the values for Address
-void getAddress(struct Address *address);
+void getAddress(struct Address* address);
 
 // Get and store from standard input the values for Numbers
-void getNumbers(struct Numbers *numbers);
+void getNumbers(struct Numbers* numbers);
 
 // Get and stroe from standard input the values for Contact
-void getContact(struct Contact *contact);
+void getContact(struct Contact* contact);
 
 // ----------------------------------------------------------------------------
 // DO NOT remove the below line (closing of the "safeguard" condition)

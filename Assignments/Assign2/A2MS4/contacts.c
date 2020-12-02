@@ -26,14 +26,14 @@
 #include "contactHelpers.h"
 
 // getName:
-void getName(struct Name *name)
+void getName(struct Name* name)
 {
   printf("Please enter the contact's first name: ");
   scanf("%30[^\n]", name->firstName);
   clearKeyboard();
 
   printf("Do you want to enter a middle initial(s)? (y or n): ");
-  if (yes() == 1) 
+  if (yes() == 1)
   {
     printf("Please enter the contact's middle initial(s): ");
     scanf("%6[^\n]", name->middleInitial);
@@ -50,7 +50,7 @@ void getName(struct Name *name)
 }
 
 // getAddress:
-void getAddress(struct Address *address)
+void getAddress(struct Address* address)
 {
   printf("Please enter the contact's street number: ");
   address->streetNumber = getPositiveInt("*** INVALID STREET NUMBER *** <must be a positive number>: ");
@@ -76,13 +76,13 @@ void getAddress(struct Address *address)
 }
 
 // getNumbers:
-void getNumbers(struct Numbers *numbers)
+void getNumbers(struct Numbers* numbers)
 {
   printf("Please enter the contact's cell phone number: ");
   getTenDigitPhone(numbers->cell);
 
   printf("Do you want to enter a home phone number? (y or n): ");
-  if (yes() == 1) 
+  if (yes() == 1)
   {
     printf("Please enter the contact's home phone number: ");
     getTenDigitPhone(numbers->home);
@@ -93,7 +93,7 @@ void getNumbers(struct Numbers *numbers)
   }
 
   printf("Do you want to enter a business phone number? (y or n): ");
-  if (yes() == 1) 
+  if (yes() == 1)
   {
     printf("Please enter the contact's business phone number: ");
     getTenDigitPhone(numbers->business);
@@ -111,7 +111,7 @@ void getNumbers(struct Numbers *numbers)
 
 // getContact:
 // Define Empty function definition below:
-void getContact(struct Contact *contact)
+void getContact(struct Contact* contact)
 {
   getName(&contact->name);
   getAddress(&contact->address);

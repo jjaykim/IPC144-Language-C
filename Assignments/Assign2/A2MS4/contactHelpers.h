@@ -9,7 +9,6 @@
 // Milestone:      4
 //==============================================
 
-
 // +-------------------------------------------------+
 // | NOTE:  Copy/Paste your Assignment-2 Milestone-2 |
 // |        contents below...                        |
@@ -50,7 +49,7 @@ void contactManagerSystem(void);
 //--------------------------------
 
 // Put function prototype below:
-int getPositiveInt(const char *errrMsg);
+int getPositiveInt(const char* errrMsg);
 
 // +-------------------------------------------------+
 // |                                                 |
@@ -81,7 +80,7 @@ void displayContactFooter(int count);
 
 // displayContact:
 // put function prototype here:
-void displayContact(const struct Contact *contact);
+void displayContact(const struct Contact* contact);
 
 // displayContacts:
 // put function prototype here:
