@@ -6,6 +6,7 @@
 #include "stock.h"
 
 #define MAX_STOCK_ENTRIES 100
+#define MAX_ITEMS_IN_SALE 25 // the highest amount is potato (21) so add 4 in advance haha..
 
 /***************************************************************/
 
