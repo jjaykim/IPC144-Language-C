@@ -26,6 +26,8 @@ void getValidvalue(const char *cateErrMsg, const char *byWeightErrMsg, const str
     }
   }
 
+  valid = 1; // need to enter into while loop
+
   while (valid == 1)
   {
     if (stockRecord[num].salesRecord.byWeight < 0 || stockRecord[num].salesRecord.byWeight > 1)

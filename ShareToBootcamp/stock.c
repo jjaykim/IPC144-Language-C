@@ -4,6 +4,7 @@
 #define MIN_CATEGORY 1
 
 #include <stdio.h>
+#include <string.h>
 
 #include "stock.h"
 
@@ -23,52 +24,87 @@ void clearKeyboard(void)
 // Get and store from standard input the values for SalesRecord
 int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
 {
+  // Variables:
   int i;
-  int categoryflag = 1;
+  int categoryflag = 1, loopflag = 0;
 
-  for (i = 0; i < max; i++)
+  // Set up to receive the data from a user
+  for (i = 0; i < max || loopflag == 1; i++)
   {
+    // receiving data 
     scanf("%d,%d,%lf,%d,%30[^\n]", &stockRecord[i].salesRecord.amout,
           &stockRecord[i].salesRecord.category,
           &stockRecord[i].salesRecord.price,
           &stockRecord[i].salesRecord.byWeight,
           stockRecord[i].product);
     clearKeyboard();
+
+    // Allowcate product ID
     stockRecord[i].productId = i;
 
-    while (categoryflag == 1)
+    // Set up to check if a user want to stop or not
+    if (stockRecord[i].salesRecord.amout == 0)
     {
-      if (stockRecord[i].salesRecord.category < MIN_CATEGORY || stockRecord[i].salesRecord.category > MAX_CATEGORY)
-      {
-        printf("Invalid Category - Enter a number between %d and %d: ", MAX_CATEGORY, MIN_CATEGORY);
-        scanf("%d,%lf,%d,%30[^\n]", &stockRecord[i].salesRecord.category,
-              &stockRecord[i].salesRecord.price,
-              &stockRecord[i].salesRecord.byWeight,
-              stockRecord[i].product);
-        clearKeyboard();
-      }
-      else
-      {
-        categoryflag = 0;
-      }
+      loopflag = 1;
     }
-
-    categoryflag = 1;
-
-    while (categoryflag == 1)
+    else
     {
-      if (stockRecord[i].salesRecord.byWeight < 0 || stockRecord[i].salesRecord.byWeight > 1)
+      // Set up to check if category value is valid or not
+      while (categoryflag == 1)
       {
-        printf("Invalid soldByWeight - Enter a number between 0 and 1: ");
-        scanf("%d,%30[^\n]", &stockRecord[i].salesRecord.byWeight, stockRecord[i].product);
-        clearKeyboard();
+        if (stockRecord[i].salesRecord.category < MIN_CATEGORY || stockRecord[i].salesRecord.category > MAX_CATEGORY)
+        {
+          printf("Invalid Category - Enter a number between %d and %d: ", MAX_CATEGORY, MIN_CATEGORY);
+          scanf("%d,%lf,%d,%30[^\n]", &stockRecord[i].salesRecord.category,
+                &stockRecord[i].salesRecord.price,
+                &stockRecord[i].salesRecord.byWeight,
+                stockRecord[i].product);
+          clearKeyboard();
+        }
+        else
+        {
+          // Allocate the 0 to exit from loop
+          categoryflag = 0;
+        }
       }
-      else
+
+      // return value to enter into while loop
+      categoryflag = 1;
+
+      // Set up to check if byWeight value is valid or not
+      while (categoryflag == 1)
       {
-        categoryflag = 0;
+        if (stockRecord[i].salesRecord.byWeight < 0 || stockRecord[i].salesRecord.byWeight > 1)
+        {
+          printf("Invalid soldByWeight - Enter a number between 0 and 1: ");
+          scanf("%d,%30[^\n]", &stockRecord[i].salesRecord.byWeight, stockRecord[i].product);
+          clearKeyboard();
+        }
+        else
+        {
+          // Allocate the 0 to exit from loop
+          categoryflag = 0;
+        }
       }
     }
   }
 
   return i;
 };
+
+void centreText(int num, char *star, char *title)
+{
+  int titleCount = strlen(title);
+  pritf();
+};
+
+// ****************** Seneca Groceries - Opening Stock ******************
+// 18 34 18
+// ************************* Now in Sales Mode **************************
+// 25 19 26
+
+// ************************* End of Day Summary *************************
+// 25 20 25
+
+// *************************** Closing Stock ****************************
+// 27 15 28
