@@ -28,17 +28,19 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
 
   for (i = 0; i < max; i++)
   {
-    scanf("%d,%d,%.2lf,%d,%s", &stockRecord[i].salesRecord.amout, &stockRecord[i].salesRecord.category,
-                               &stockRecord[i].salesRecord.price, &stockRecord[i].salesRecord.byWeight,
-                               stockRecord[i].product);
+    scanf("%d,%d,%lf,%d,%s", &stockRecord[i].salesRecord.amout,
+      &stockRecord[i].salesRecord.category,
+      &stockRecord[i].salesRecord.price,
+      &stockRecord[i].salesRecord.byWeight,
+      stockRecord[i].product);
 
     while (categoryflag == 1)
     {
       if (stockRecord[i].salesRecord.category < MIN_CATEGORY || stockRecord[i].salesRecord.category > MAX_CATEGORY)
       {
         printf("Invalid Category - Enter a number between %d and %d:", MAX_CATEGORY, MIN_CATEGORY);
-        scanf("%d,%.2lf,%d,%s", &stockRecord[i].salesRecord.category, &stockRecord[i].salesRecord.price,
-              &stockRecord[i].salesRecord.byWeight, stockRecord[i].product);
+        scanf("%d,%lf,%d,%s", &stockRecord[i].salesRecord.category, &stockRecord[i].salesRecord.price,
+          &stockRecord[i].salesRecord.byWeight, stockRecord[i].product);
       }
       else
       {
@@ -46,12 +48,14 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
       }
     }
 
+    categoryflag = 1;
+
     while (categoryflag == 1)
     {
       if (stockRecord[i].salesRecord.byWeight < 0 || stockRecord[i].salesRecord.byWeight > 1)
       {
-        pritnf("Invalid soldByWeight - Enter a number:");
-        scanf("%d,%s", stockRecord[i].salesRecord.byWeight, stockRecord[i].product);
+        printf("Invalid soldByWeight - Enter a number");
+        scanf("%d,%s", &stockRecord[i].salesRecord.byWeight, stockRecord[i].product);
       }
       else
       {
@@ -59,5 +63,6 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
       }
     }
   }
+
   return 1;
 };
