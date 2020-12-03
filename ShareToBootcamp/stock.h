@@ -23,4 +23,10 @@ void clearKeyboard(void);
 // Get and store from standard input the values for SalesRecord
 int readStockItems(struct StockRecord stockRecord[], int max, int bonus);
 
-// 
+// Creat to check the value is valid or not
+// void getValidvalue(const char* cateErrMsg, const char* byWeightErrMsg, const struct StockRecord stockRecord[], int num);
+
+
+// centreText(70, '*', " Seneca Groceries - Opening Stock ");
+
+// printStockReport(storeStock, numStockItems);

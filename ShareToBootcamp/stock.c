@@ -28,19 +28,24 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
 
   for (i = 0; i < max; i++)
   {
-    scanf("%d,%d,%lf,%d,%s", &stockRecord[i].salesRecord.amout,
-      &stockRecord[i].salesRecord.category,
-      &stockRecord[i].salesRecord.price,
-      &stockRecord[i].salesRecord.byWeight,
-      stockRecord[i].product);
+    scanf("%d,%d,%lf,%d,%30[^\n]", &stockRecord[i].salesRecord.amout,
+          &stockRecord[i].salesRecord.category,
+          &stockRecord[i].salesRecord.price,
+          &stockRecord[i].salesRecord.byWeight,
+          stockRecord[i].product);
+    clearKeyboard();
+    stockRecord[i].productId = i;
 
     while (categoryflag == 1)
     {
       if (stockRecord[i].salesRecord.category < MIN_CATEGORY || stockRecord[i].salesRecord.category > MAX_CATEGORY)
       {
-        printf("Invalid Category - Enter a number between %d and %d:", MAX_CATEGORY, MIN_CATEGORY);
-        scanf("%d,%lf,%d,%s", &stockRecord[i].salesRecord.category, &stockRecord[i].salesRecord.price,
-          &stockRecord[i].salesRecord.byWeight, stockRecord[i].product);
+        printf("Invalid Category - Enter a number between %d and %d: ", MAX_CATEGORY, MIN_CATEGORY);
+        scanf("%d,%lf,%d,%30[^\n]", &stockRecord[i].salesRecord.category,
+              &stockRecord[i].salesRecord.price,
+              &stockRecord[i].salesRecord.byWeight,
+              stockRecord[i].product);
+        clearKeyboard();
       }
       else
       {
@@ -54,8 +59,9 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
     {
       if (stockRecord[i].salesRecord.byWeight < 0 || stockRecord[i].salesRecord.byWeight > 1)
       {
-        printf("Invalid soldByWeight - Enter a number");
-        scanf("%d,%s", &stockRecord[i].salesRecord.byWeight, stockRecord[i].product);
+        printf("Invalid soldByWeight - Enter a number between 0 and 1: ");
+        scanf("%d,%30[^\n]", &stockRecord[i].salesRecord.byWeight, stockRecord[i].product);
+        clearKeyboard();
       }
       else
       {
@@ -64,5 +70,5 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
     }
   }
 
-  return 1;
+  return i;
 };
