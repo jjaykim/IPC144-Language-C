@@ -24,6 +24,7 @@ void clearKeyboard(void);
 int readStockItems(struct StockRecord stockRecord[], int max, int bonus);
 
 // Displying the title
-void centreText(int num, char* star, char* title);
+void centreText(int num, char symbol, char *title);
 
-// printStockReport(storeStock, numStockItems);
+// Displaying inventory status
+void printStockReport(const struct StockRecord* storeStock, int prodID);

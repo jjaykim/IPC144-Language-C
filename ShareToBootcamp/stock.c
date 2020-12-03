@@ -92,23 +92,6 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
   return i;
 };
 
-void centreText(int num, char *star, char *title)
-{
-  int titleCount = strlen(title);
-  pritf();
-};
-
-// ****************** Seneca Groceries - Opening Stock ******************
-// 18 34 18
-// ************************* Now in Sales Mode **************************
-// 25 19 26
-
-// ************************* End of Day Summary *************************
-// 25 20 25
-
-// *************************** Closing Stock ****************************
-// 27 15 28
-
 // Displying the title
 void centreText(int num, char symbol, char* title)
 {
@@ -147,3 +130,18 @@ void centreText(int num, char symbol, char* title)
     }
   }
 };
+
+void printStockReport(const struct StockRecord* storeStock, int prodID)
+{
+  int i;
+
+  for (i = 0; i < prodID; i++)
+  {
+    printf("  ID          Product    Category  Price Quantity");
+    printf("%4d %30s %15d %7.2lf %8d", (i + 1), storeStock[i].product,
+                                     &storeStock[i].salesRecord.category,
+                                     &storeStock[i].salesRecord.price,
+                                     &storeStock->salesRecord.amout);
+  }
+}
+ 
