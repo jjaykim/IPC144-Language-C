@@ -108,3 +108,42 @@ void centreText(int num, char *star, char *title)
 
 // *************************** Closing Stock ****************************
 // 27 15 28
+
+// Displying the title
+void centreText(int num, char symbol, char* title)
+{
+  // Variables:
+  int i;
+  int starCount = (num - strlen(title)) / 2;
+
+  // Set up to check if the length of title is 0 or not
+  if (strlen(title) == 0)
+  {
+    // Displaying only symbol character
+    for (i = 0; i < num; i++)
+    {
+      printf("%c", symbol);
+    }
+  }
+  else
+  {
+    // Set up to count the symbol and title
+    for (i = 0; i < num; i++)
+    {
+      if (i < starCount)
+      {
+        printf("%c", symbol);
+      }
+      else if (i < starCount + strlen(title))
+      {
+        printf(title);
+        // Set up to move to next symbol slot
+        i = starCount + strlen(title) - 1;
+      }
+      else
+      {
+        printf("%c", symbol);
+      }
+    }
+  }
+};
