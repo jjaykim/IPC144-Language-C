@@ -132,60 +132,57 @@ void centreText(int num, char symbol, char* title)
 };
 
 // Change the Category name from integer to Character
-int changeCate(const struct StockRecord* changeName, int prodID)
+void changeCate(int prodc, int prodID, char cate[])
 {
-  int i;
-  char cateName = { '\0' };
 
-  switch (changeName->salesRecord.category)
+  switch (prodc)
   {
   case 1:
-    cateName = 'produce';
+    strcpy(cate, "produce");
     break;
 
   case 2:
-    cateName = 'bakery';
+    strcpy(cate, "bakery");
     break;
 
   case 3:
-    cateName = 'meat';
+    strcpy(cate, "meat");
     break;
-
   case 4:
-    cateName = 'dairy';
+    strcpy(cate, "dairy");
     break;
-
   case 5:
-    cateName = 'baking';
+    strcpy(cate, "baking");
     break;
-
   case 6:
-    cateName = 'house wares';
+    strcpy(cate, "house wares");
     break;
-
   case 7:
-    cateName = 'miscellaneous';
+    strcpy(cate, "miscellaneous");
     break;
 
   default:
     break;
   }
-  
-  return cateName;
-}
+};
 
 // Displaying inventory status
-void printStockReport(const struct StockRecord *storeStock, int prodID)
+void printStockReport(const struct StockRecord* storeStock, int prodID)
 {
   int i;
+  char alpabetCate[30] = { '\0' };
 
   printf("  ID          Product    Category  Price Quantity");
 
   for (i = 0; i < prodID; i++)
   {
-    printf("%4d %17s %15d %7.2lf %-6d\n", (i + 1), storeStock[i].product,
-           changeCate(storeStock[i].salesRecord.category, prodID),
-           storeStock[i].salesRecord.price,
-           storeStock[i].salesRecord.amout);
+    char alpabetCate[30] = { '\0' };
+
+    changeCate(storeStock[i].salesRecord.category, i, alpabetCate);
+
+    printf("%4d %17s %15s %7.2lf %-6d\n", (i + 1), storeStock[i].product,
+      alpabetCate,
+      storeStock[i].salesRecord.price,
+      storeStock[i].salesRecord.amout);
   }
 }
