@@ -13,9 +13,14 @@ struct SalesRecord
 struct StockRecord
 {
   struct SalesRecord salesRecord; // struct of SalesRecord
-  char product[30]; // Chocolate cup cakes -> 19 words so in advance...haha
-  double idk;
+  char product[30];               // Chocolate cup cakes -> 19 words so in advance...haha
+  double productId;               // typically product ID
 };
 
+// Clear the standard input buffer
+void clearKeyboard(void);
+
 // Get and store from standard input the values for SalesRecord
-void getSalesRecord(struct SalesRecord* salesRecord);
+int readStockItems(struct StockRecord stockRecord[], int max, int bonus);
+
+// 
