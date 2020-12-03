@@ -131,17 +131,61 @@ void centreText(int num, char symbol, char* title)
   }
 };
 
-void printStockReport(const struct StockRecord* storeStock, int prodID)
+// Change the Category name from integer to Character
+int changeCate(const struct StockRecord* changeName, int prodID)
+{
+  int i;
+  char cateName = { '\0' };
+
+  switch (changeName->salesRecord.category)
+  {
+  case 1:
+    cateName = 'produce';
+    break;
+
+  case 2:
+    cateName = 'bakery';
+    break;
+
+  case 3:
+    cateName = 'meat';
+    break;
+
+  case 4:
+    cateName = 'dairy';
+    break;
+
+  case 5:
+    cateName = 'baking';
+    break;
+
+  case 6:
+    cateName = 'house wares';
+    break;
+
+  case 7:
+    cateName = 'miscellaneous';
+    break;
+
+  default:
+    break;
+  }
+  
+  return cateName;
+}
+
+// Displaying inventory status
+void printStockReport(const struct StockRecord *storeStock, int prodID)
 {
   int i;
 
+  printf("  ID          Product    Category  Price Quantity");
+
   for (i = 0; i < prodID; i++)
   {
-    printf("  ID          Product    Category  Price Quantity");
-    printf("%4d %30s %15d %7.2lf %8d", (i + 1), storeStock[i].product,
-                                     &storeStock[i].salesRecord.category,
-                                     &storeStock[i].salesRecord.price,
-                                     &storeStock->salesRecord.amout);
+    printf("%4d %17s %15d %7.2lf %-6d\n", (i + 1), storeStock[i].product,
+           changeCate(storeStock[i].salesRecord.category, prodID),
+           storeStock[i].salesRecord.price,
+           storeStock[i].salesRecord.amout);
   }
 }
- 

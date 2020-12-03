@@ -28,3 +28,6 @@ void centreText(int num, char symbol, char *title);
 
 // Displaying inventory status
 void printStockReport(const struct StockRecord* storeStock, int prodID);
+
+// Change the Category name from integer to Character
+int changeCate(const struct StockRecord* changeName, int prodID);
