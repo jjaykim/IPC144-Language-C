@@ -39,13 +39,22 @@ int readSale(struct StockRecord* storeStock, int lange, struct SalesRecord saleI
 // int getTotalPrice(const struct StockRecord* storeStock, int lange, int inputID, int inputQun); // I think I don't need it
 
 // Displaying the results of sale
-int printSalesReport(const struct StockRecord* storeStock, struct SalesRecord saleItems[], int numSaleItems);
+double printSalesReport(const struct StockRecord storeStock[], struct SalesRecord saleItems[], int numSaleItems);
 
 // Avoid negative value when subtracting the quantity
-int getPositiveInt(const struct StockRecord* storeStock, int inputID, int inputQun);
+int getPositiveInt(struct StockRecord *storeStock, int validID, int inputQun);
 
 // Calculating the total price with only valid quantity
-int getTotalPrice(const struct StockRecord* storeStock, int inputID, int inputQun); 
+int getTotalPrice(struct StockRecord *storeStock, int validID, int inputQun);
+
+// Checking the valid product ID
+int findValidID(const struct StockRecord storeStock[], int lange, int inputID);
+
+// initialization struct SalesRecord array
+void initPrice(struct SalesRecord salesItems[], int lange);
+
+// Receiving a product ID to purchase from a user
+int readSale(struct StockRecord storeStock[], int lange, struct SalesRecord saleItems[]);
 
 //
 // void getTopSellers(const struct StockRecord* storeStock, int lange, struct SalesRecord topSellers[], int rank, int cat);
