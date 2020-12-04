@@ -40,7 +40,7 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
     clearKeyboard();
 
     // Allowcate product ID
-    stockRecord[i].productId = i;
+    stockRecord[i].productId = i + 1;
 
     // Set up to check if a user want to stop or not
     if (stockRecord[i].salesRecord.amout == 0)
@@ -167,22 +167,168 @@ void changeCate(int prodc, int prodID, char cate[])
 };
 
 // Displaying inventory status
-void printStockReport(const struct StockRecord* storeStock, int prodID)
+void printStockReport(const struct StockRecord* storeStock, int lange)
 {
   int i;
   char alpabetCate[30] = { '\0' };
 
-  printf("  ID          Product    Category  Price Quantity");
+  puts("  ID          Product    Category  Price Quantity");
 
-  for (i = 0; i < prodID; i++)
+  for (i = 0; i < lange; i++)
   {
     char alpabetCate[30] = { '\0' };
 
     changeCate(storeStock[i].salesRecord.category, i, alpabetCate);
 
-    printf("%4d %17s %15s %7.2lf %-6d\n", (i + 1), storeStock[i].product,
-      alpabetCate,
-      storeStock[i].salesRecord.price,
-      storeStock[i].salesRecord.amout);
+    printf("%4d %17s %15s %7.2lf %-6d\n", (i + 1), storeStock[i].product, //  I didn't match the line yet,, haha
+                                          alpabetCate,
+                                          storeStock[i].salesRecord.price,
+                                          storeStock[i].salesRecord.amout);
   }
 }
+
+/*
+Calculating total price
+int getTotalPrice(const struct StockRecord* storeStock, int lange, int inputID, int inputQun)
+{
+  // Variables:
+  int i;
+  int totalPrice;
+
+  // Set up to find the matched product ID
+  for (i = 0; i < lange; i++)
+  {
+    // I'm not sure should I chage the product ID type from double to int..? 
+    if (storeStock[i].productId - inputID == 0)
+    {
+      totalPrice = storeStock[i].salesRecord.price * inputQun;
+    }
+  }
+
+  return totalPrice;
+}
+*/
+
+// Calculating the total price with only valid quantity
+int getTotalPrice(const struct StockRecord *storeStock, int inputID, int inputQun)
+{
+  double totalPrice;
+
+  // Set up to calculate the valid total prices
+  if (storeStock[inputID].salesRecord.amout < inputQun)
+  {
+    totalPrice = storeStock[inputID].salesRecord.price * storeStock[inputID].salesRecord.amout;
+  }
+  else
+  {
+    totalPrice = storeStock[inputID].salesRecord.price * inputQun;
+  }
+  
+  return totalPrice;
+}
+
+// Avoid negative value when subtracting the quantity
+int getPositiveInt(const struct StockRecord* storeStock, int inputID, int inputQun)
+{
+  int convertNum;
+
+  // Set up to make a zero value if quantity is less than zero
+  if (storeStock[inputID].salesRecord.amout - inputQun < 0)
+  {
+    convertNum = (storeStock[inputID].salesRecord.amout - inputQun) * -1;
+    convertNum += storeStock[inputID].salesRecord.amout - inputQun;
+  }
+
+  return convertNum;
+}
+
+// Receiving a product ID to purchase from a user
+int readSale(struct StockRecord* storeStock, int lange, struct SalesRecord saleItems[])
+{
+  // Variables:
+  int i;
+  int inputID, inputQun;
+  int loopFlag = 0;
+
+  // Set up to receive the data from a user
+  for (i = 0; i < lange || loopFlag == 1; i++)
+  {
+    printf("Enter a product ID to purchase, and the quantity (0 to stop): ");
+    scanf("%d,%d", inputID, inputQun);
+
+    // Set up to check if a user want to exit or not
+    if (inputID == 0)
+    {
+      loopFlag = 1;
+    }
+    else
+    {
+      // Set up to check if inputted product ID is valid or not
+      while (inputID < 0 || inputID > lange)
+      {
+        printf("Invalid Product - Enter a number between 0 and &d: ", lange);
+        scanf("%d,%d", inputID, inputQun);
+      }
+
+      // Set up to check if inputted product quntity is valid or not
+      while (inputQun < 0.1 || inputQun > 100)  // I cannot figure out the meaning of 0.1 and 100
+      {
+        printf("Invalid quantity - Enter a number between 0.10 and 100.00: ");
+        scanf("%d,%d", inputID, inputQun);
+      }
+
+      // Declear the total price
+      saleItems[inputID].price = getTotalPrice(storeStock, inputID, inputQun);
+
+      // Declear the valid quantity
+      storeStock[inputID].salesRecord.amout = getPositiveInt(storeStock, inputID, inputQun);
+    }
+  }
+
+  // Return the count of total sales
+  return i + 1;
+}
+
+// Displaying the results of sale
+int printSalesReport(const struct StockRecord* storeStock, struct SalesRecord saleItems[], int numSaleItems)
+{
+  // Variables:
+  int i;
+  double totalPurchase = 0.0, tax = 0.0, totalPrice = 0.0;
+  
+  puts("*********************** Seneca Groceries ***********************");
+  puts("================================================================");
+
+  // Set up to display the receipt
+  for (i = 0; i < numSaleItems; i++)
+  {
+    // Set up to find the inputted product ID with price vlaue
+    if (storeStock[i].salesRecord.price != saleItems[i].price)
+    {
+      printf("%16s %5.2lf %7.2lf\n", storeStock[i].product, &storeStock[i].salesRecord.price, &saleItems[i].price);
+      
+      // Set up to find if the value need to be calculated taxes
+      if (storeStock[i].salesRecord.category == 6 || storeStock[i].salesRecord.category == 7)
+      {
+        tax = saleItems[i].price * 0.13;
+      }
+      
+      totalPurchase += saleItems[i].price;
+      tax += tax;
+      totalPrice = totalPurchase + tax;
+
+      printf("Purchase Total %8.2lf\n", totalPurchase);
+      printf("Tax %8.2lf\n", tax);
+      printf("Total %8.2lf\n", totalPrice);
+      puts("Thank you for shopping at Seneca!\n");
+    }
+  }
+}
+
+
+
+// void getTopSellers(const struct StockRecord *storeStock, int lange, struct SalesRecord topSellers[], int rank, int cat)
+// {
+//   int i;
+  
+// }
