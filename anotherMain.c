@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#include "stock.h"
+#include "anotherStruct.h"
 
 #define MAX_STOCK_ENTRIES 100
 

@@ -27,16 +27,16 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus);
 void centreText(int num, char symbol, char *title);
 
 // Displaying inventory status
-void printStockReport(const struct StockRecord* storeStock, int lange);
+void printStockReport(const struct StockRecord* storeStock, int range);
 
 // Change the Category name form integer to Character
-void changeCate(int prodc, int prodID, char cate[]);
+void changeCate(int prodc, char cate[]);
 
 // Receiving a product ID to purchase from a user
-int readSale(struct StockRecord* storeStock, int lange, struct SalesRecord saleItems[]);
+int readSale(struct StockRecord* storeStock, int range, struct SalesRecord saleItems[]);
 
 // Calculating total price
-// int getTotalPrice(const struct StockRecord* storeStock, int lange, int inputID, int inputQun); // I think I don't need it
+// int getTotalPrice(const struct StockRecord* storeStock, int range, int inputID, int inputQun); // I think I don't need it
 
 // Displaying the results of sale
 double printSalesReport(const struct StockRecord storeStock[], struct SalesRecord saleItems[], int numSaleItems);
@@ -48,13 +48,13 @@ int getPositiveInt(struct StockRecord *storeStock, int validID, int inputQun);
 int getTotalPrice(struct StockRecord *storeStock, int validID, int inputQun);
 
 // Checking the valid product ID
-int findValidID(const struct StockRecord storeStock[], int lange, int inputID);
+int findValidID(const struct StockRecord storeStock[], int range, int inputID);
 
 // initialization struct SalesRecord array
-void initPrice(struct SalesRecord salesItems[], int lange);
+void initPrice(struct SalesRecord salesItems[], int range);
 
 // Receiving a product ID to purchase from a user
-int readSale(struct StockRecord storeStock[], int lange, struct SalesRecord saleItems[]);
+int readSale(struct StockRecord storeStock[], int range, struct SalesRecord saleItems[]);
 
 //
-// void getTopSellers(const struct StockRecord* storeStock, int lange, struct SalesRecord topSellers[], int rank, int cat);
+// void getTopSellers(const struct StockRecord* storeStock, int range, struct SalesRecord topSellers[], int rank, int cat);

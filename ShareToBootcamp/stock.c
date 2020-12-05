@@ -133,9 +133,8 @@ void centreText(int num, char symbol, char* title)
 };
 
 // Change the Category name from integer to Character
-void changeCate(int prodc, int prodID, char cate[])
+void changeCate(int prodc, char cate[])
 {
-
   switch (prodc)
   {
   case 1:
@@ -168,18 +167,18 @@ void changeCate(int prodc, int prodID, char cate[])
 };
 
 // Displaying inventory status
-void printStockReport(const struct StockRecord* storeStock, int lange)
+void printStockReport(const struct StockRecord* storeStock, int range)
 {
   int i;
   char alpabetCate[30] = { '\0' };
 
   puts("  ID          Product    Category  Price Quantity");
 
-  for (i = 0; i < lange; i++)
+  for (i = 0; i < range; i++)
   {
     char alpabetCate[30] = { '\0' };
 
-    changeCate(storeStock[i].salesRecord.category, i, alpabetCate);
+    changeCate(storeStock[i].salesRecord.category, alpabetCate);
 
     printf("%4d %17s %15s %7.2lf %-6d\n", (i + 1), storeStock[i].product, //  I didn't match the line yet,, haha
                                           alpabetCate,
@@ -190,14 +189,14 @@ void printStockReport(const struct StockRecord* storeStock, int lange)
 
 /*
 Calculating total price
-int getTotalPrice(const struct StockRecord* storeStock, int lange, int inputID, int inputQun)
+int getTotalPrice(const struct StockRecord* storeStock, int range, int inputID, int inputQun)
 {
   // Variables:
   int i;
   int totalPrice;
 
   // Set up to find the matched product ID
-  for (i = 0; i < lange; i++)
+  for (i = 0; i < range; i++)
   {
     // I'm not sure should I chage the product ID type from double to int..? 
     if (storeStock[i].productId - inputID == 0)
@@ -211,7 +210,7 @@ int getTotalPrice(const struct StockRecord* storeStock, int lange, int inputID, 
 */
 
 // Checking the valid product ID
-int findValidID(const struct StockRecord storeStock[], int lange, int inputID)
+int findValidID(const struct StockRecord storeStock[], int range, int inputID)
 {
   int i = 0;
   int loopflag = 0;
@@ -257,8 +256,7 @@ int getPositiveInt(struct StockRecord* storeStock, int validID, int inputQun)
   // Set up to make a zero value if quantity is less than zero
   if (storeStock[validID].salesRecord.amout - inputQun < 0)
   {
-    convertNum = (storeStock[validID].salesRecord.amout - inputQun) * -1;
-    convertNum += storeStock[validID].salesRecord.amout - inputQun;
+    convertNum = 0;
   }
   else
   {
@@ -269,25 +267,25 @@ int getPositiveInt(struct StockRecord* storeStock, int validID, int inputQun)
 }
 
 // initialization struct SalesRecord array
-void initPrice(struct SalesRecord salesItems[], int lange)
+void initPrice(struct SalesRecord salesItems[], int range)
 {
   int i;
 
-  for (i = 0; i < lange; i++)
+  for (i = 0; i < range; i++)
   {
     salesItems[i].price = 0.0;
   }
 }
 
 // Receiving a product ID to purchase from a user
-int readSale(struct StockRecord storeStock[], int lange, struct SalesRecord saleItems[])
+int readSale(struct StockRecord storeStock[], int range, struct SalesRecord saleItems[])
 {
   // Variables:
   int i = 0, validID;
   int inputID, inputQun;
   int loopFlag = 0;
 
-  initPrice(saleItems, lange);
+  initPrice(saleItems, range);
 
   // Set up to receive the data from a user
   do
@@ -303,9 +301,9 @@ int readSale(struct StockRecord storeStock[], int lange, struct SalesRecord sale
     else
     {
       // Set up to check if inputted product ID is valid or not
-      while (inputID < 0 || inputID > lange)
+      while (inputID < 0 || inputID > range)
       {
-        printf("Invalid Product - Enter a number between 0 and &d: ", lange);
+        printf("Invalid Product - Enter a number between 0 and &d: ", range);
         scanf("%d,%d", &inputID, &inputQun);
       }
 
@@ -317,7 +315,7 @@ int readSale(struct StockRecord storeStock[], int lange, struct SalesRecord sale
       }
 
       // Finding the valid ID
-      validID = findValidID(storeStock, lange, inputID);
+      validID = findValidID(storeStock, range, inputID);
 
       // Declear the total price
       saleItems[validID].price = getTotalPrice(storeStock, validID, inputQun);
@@ -377,7 +375,7 @@ double printSalesReport(const struct StockRecord storeStock[], struct SalesRecor
   return totalPrice - tax;
 }
 
-// void getTopSellers(const struct StockRecord *storeStock, int lange, struct SalesRecord topSellers[], int rank, int cat)
+// void getTopSellers(const struct StockRecord *storeStock, int range, struct SalesRecord topSellers[], int rank, int cat)
 // {
 //   int i;
   
