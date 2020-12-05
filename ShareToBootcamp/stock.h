@@ -35,9 +35,6 @@ void changeCate(int prodc, char cate[]);
 // Receiving a product ID to purchase from a user
 int readSale(struct StockRecord* storeStock, int range, struct SalesRecord saleItems[]);
 
-// Calculating total price
-// int getTotalPrice(const struct StockRecord* storeStock, int range, int inputID, int inputQun); // I think I don't need it
-
 // Displaying the results of sale
 double printSalesReport(const struct StockRecord storeStock[], struct SalesRecord saleItems[], int numSaleItems);
 
@@ -45,7 +42,7 @@ double printSalesReport(const struct StockRecord storeStock[], struct SalesRecor
 int getPositiveInt(struct StockRecord *storeStock, int validID, int inputQun);
 
 // Calculating the total price with only valid quantity
-int getTotalPrice(struct StockRecord *storeStock, int validID, int inputQun);
+double getTotalPrice(struct StockRecord *storeStock, int validID, int inputQun);
 
 // Checking the valid product ID
 int findValidID(const struct StockRecord storeStock[], int range, int inputID);
@@ -53,8 +50,6 @@ int findValidID(const struct StockRecord storeStock[], int range, int inputID);
 // initialization struct SalesRecord array
 void initPrice(struct SalesRecord salesItems[], int range);
 
-// Receiving a product ID to purchase from a user
-int readSale(struct StockRecord storeStock[], int range, struct SalesRecord saleItems[]);
 
 //
 // void getTopSellers(const struct StockRecord* storeStock, int range, struct SalesRecord topSellers[], int rank, int cat);

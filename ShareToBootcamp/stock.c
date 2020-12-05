@@ -6,8 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "stock.h"
-
+#include "final.h"
 //--------------------------------
 // Function Definitions
 //--------------------------------
@@ -31,7 +30,6 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
   // Set up to receive the data from a user
   for (i = 0; i < max && !loopflag; i++)
   {
-    // receiving data 
     scanf("%d,%d,%lf,%d,%30[^\n]", &stockRecord[i].salesRecord.amout,
           &stockRecord[i].salesRecord.category,
           &stockRecord[i].salesRecord.price,
@@ -86,14 +84,22 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
           categoryflag = 0;
         }
       }
+
+      /*  printf("%d,%d,%.2lf,%d,%s", stockRecord[i].salesRecord.amout,
+          stockRecord[i].salesRecord.category,
+          stockRecord[i].salesRecord.price,
+          stockRecord[i].salesRecord.byWeight,
+          stockRecord[i].product);
+        puts("");*/
     }
   }
 
-  return i;
+  // Set up to remove the slot of zero
+  return i - 1;
 };
 
 // Displying the title
-void centreText(int num, char symbol, char* title)
+void centreText(int num, char symbol, char *title)
 {
   // Variables:
   int i;
@@ -135,6 +141,7 @@ void centreText(int num, char symbol, char* title)
 // Change the Category name from integer to Character
 void changeCate(int prodc, char cate[])
 {
+
   switch (prodc)
   {
   case 1:
@@ -167,23 +174,24 @@ void changeCate(int prodc, char cate[])
 };
 
 // Displaying inventory status
-void printStockReport(const struct StockRecord* storeStock, int range)
+void printStockReport(const struct StockRecord *storeStock, int prodID)
 {
   int i;
-  char alpabetCate[30] = { '\0' };
+  char alpabetCate[30] = {'\0'};
 
   puts("  ID          Product    Category  Price Quantity");
 
-  for (i = 0; i < range; i++)
+  for (i = 0; i < prodID; i++)
   {
-    char alpabetCate[30] = { '\0' };
+    // Set up to receive a Category as a new one using initialization
+    char alpabetCate[30] = {'\0'};
 
     changeCate(storeStock[i].salesRecord.category, alpabetCate);
 
-    printf("%4d %17s %15s %7.2lf %-6d\n", (i + 1), storeStock[i].product, //  I didn't match the line yet,, haha
-                                          alpabetCate,
-                                          storeStock[i].salesRecord.price,
-                                          storeStock[i].salesRecord.amout);
+    printf("%4d %17s %15s %7.2lf %-6d\n", (i + 1), storeStock[i].product,
+           alpabetCate,
+           storeStock[i].salesRecord.price,
+           storeStock[i].salesRecord.amout);
   }
 }
 
@@ -191,13 +199,13 @@ void printStockReport(const struct StockRecord* storeStock, int range)
 int findValidID(const struct StockRecord storeStock[], int range, int inputID)
 {
   int i = 0;
-  int loopflag = 1;
+  int loopflag = 0;
 
-  while (loopflag)
+  while (!loopflag)
   {
     if (inputID - storeStock[i].productId == 1)
     {
-      loopflag = 0;
+      loopflag = 1;
     }
     else
     {
@@ -209,7 +217,8 @@ int findValidID(const struct StockRecord storeStock[], int range, int inputID)
 }
 
 // Calculating the total price with only valid quantity
-int getTotalPrice(struct StockRecord *storeStock, int validID, int inputQun)
+double getTotalPrice(struct StockRecord *storeStock, int validID, int inputQun)
+
 {
   double totalPrice = 0.0;
 
@@ -222,14 +231,39 @@ int getTotalPrice(struct StockRecord *storeStock, int validID, int inputQun)
   {
     totalPrice = storeStock[validID].salesRecord.price * inputQun;
   }
-  
+
+  //// Set up to find the matched product ID
+  //for (i = 0; i < range && !loopflag; i++)
+  //{
+  //  if (inputID - storeStock[i].productId == 1)
+  //  {
+  //    loopflag = 1;
+
+  //    // Set up to calculate the valid total prices
+  //    if (storeStock[i].salesRecord.amout < inputQun)
+  //    {
+  //      totalPrice = storeStock[i].salesRecord.price * storeStock[i].salesRecord.amout;
+  //    }
+  //    else
+  //    {
+  //      totalPrice = storeStock[i].salesRecord.price * inputQun;
+  //    }
+  //  }
+  //}
+
   return totalPrice;
 }
 
 // Avoid negative value when subtracting the quantity
-int getPositiveInt(struct StockRecord* storeStock, int validID, int inputQun)
+int getPositiveInt(struct StockRecord *storeStock, int validID, int inputQun)
 {
   int convertNum = 0;
+
+  // Set up to check if the values are correted input or not (Debugging)
+  printf("the value: %d\n", validID);
+  printf("the name: %s\n", storeStock[validID].product);
+  printf("the value: %d\n", storeStock[validID].salesRecord.amout);
+  printf("the vlaue: %d\n", inputQun);
 
   // Set up to make a zero value if quantity is less than zero
   if (storeStock[validID].salesRecord.amout - inputQun < 0)
@@ -261,33 +295,33 @@ int readSale(struct StockRecord storeStock[], int range, struct SalesRecord sale
   // Variables:
   int i = 0, validID;
   int inputID, inputQun;
-  int loopFlag = 1;
+  int loopFlag = 0;
 
-  // Set up to receive as a new 
+  // Set up to receive as a new
   initPrice(saleItems, range);
 
   // Set up to receive the data from a user
   do
   {
     printf("Enter a product ID to purchase, and the quantity (0 to stop): ");
-    scanf("%d,%d", inputID, inputQun);
+    scanf("%d,%d", &inputID, &inputQun);
 
     // Set up to check if a user want to exit or not
     if (inputID == 0)
     {
-      loopFlag = 0;
+      loopFlag = 1;
     }
     else
     {
       // Set up to check if inputted product ID is valid or not
       while (inputID < 0 || inputID > range)
       {
-        printf("Invalid Product - Enter a number between 0 and &d: ", range);
+        printf("Invalid Product - Enter a number between 0 and %d: ", range); // I don't know how to display maximum value using range
         scanf("%d,%d", &inputID, &inputQun);
       }
 
       // Set up to check if inputted product quntity is valid or not
-      while (inputQun < 0.1 || inputQun > 100)  // I cannot figure out the meaning of 0.1 and 100
+      while (inputQun < 0.1 || inputQun > 100) // I cannot figure out the meaning of 0.1 and 100
       {
         printf("Invalid quantity - Enter a number between 0.10 and 100.00: ");
         scanf("%d,%d", &inputID, &inputQun);
@@ -299,12 +333,18 @@ int readSale(struct StockRecord storeStock[], int range, struct SalesRecord sale
       // Declear the total price
       saleItems[validID].price = getTotalPrice(storeStock, validID, inputQun);
 
+      // Set up to check if it is corrected or not (Debugging)
+      printf("Check the value: %.2lf\n", saleItems[validID].price);
+
       // Declear the valid quantity
       storeStock[validID].salesRecord.amout = getPositiveInt(storeStock, validID, inputQun);
 
+      // Set up to check if it is corrected or not (Debugging)
+      printf("Check the value: %d\n", storeStock[validID].salesRecord.amout);
+
       i++;
     }
-  } while (loopFlag);
+  } while (!loopFlag);
 
   // Return the count of total sales
   return i;
@@ -316,7 +356,7 @@ double printSalesReport(const struct StockRecord storeStock[], struct SalesRecor
   // Variables:
   int i = 0, j = 0;
   double totalPurchase = 0.0, tax = 0.0, totalPrice = 0.0;
-  
+
   puts("*********************** Seneca Groceries ***********************");
   puts("================================================================");
 
@@ -353,9 +393,3 @@ double printSalesReport(const struct StockRecord storeStock[], struct SalesRecor
 
   return totalPrice - tax;
 }
-
-// void getTopSellers(const struct StockRecord *storeStock, int range, struct SalesRecord topSellers[], int rank, int cat)
-// {
-//   int i;
-  
-// }
