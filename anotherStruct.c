@@ -29,7 +29,7 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
   int categoryflag = 1, loopflag = 0;
 
   // Set up to receive the data from a user
-  for (i = 0; i < max || loopflag == 1;)
+  for (i = 0; i < max && !loopflag;)
   {
     // receiving data
     scanf("%d,%d,%lf,%d,%30[^\n]", &stockRecord[i].productStock.productAmount,
@@ -41,7 +41,7 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
     clearKeyboard();
 
     // Set up to check if a user want to stop or not
-    if (stockRecord[i].productStock.productAmount < 0)
+    if (stockRecord[i].productStock.productAmount < 1)
     {
       loopflag = 1;
     }
@@ -263,7 +263,7 @@ int readSale(struct StockRecord* storeStock, int range, struct SalesRecord saleI
       while (saleItems[i].productID < 0 || saleItems[i].productID > range
     )
       {
-        printf("Invalid Product - Enter a number between 0 and &d: ", range
+        printf("Invalid Product - Enter a number between 0 and %d: ", range
       );
         scanf("%d,%d", &saleItems[i].productID, &saleItems[i].productSold);
       }
@@ -279,7 +279,7 @@ int readSale(struct StockRecord* storeStock, int range, struct SalesRecord saleI
       validID = findValidID(saleItems[i].productID);
 
       // Overwrite
-      storeStock[validID].productQuantity = getPositiveInt(storeStock, validID, saleItems[i].productID);
+      storeStock[validID].productStock.productAmount = getPositiveInt(storeStock, validID, saleItems[i].productID);
 
       i++;
     }
@@ -287,6 +287,22 @@ int readSale(struct StockRecord* storeStock, int range, struct SalesRecord saleI
 
   // Return the count of total sales
   return i;
+}
+
+int getValidQuntity(struct StockRecord storeStock[], struct SalesRecord saleItems[], int validAmount, int inputAmount)
+{
+  int validQuntity = 0;
+
+  if (storeStock[validAmount].productStock.productAmount < saleItems[inputAmount].productSold)
+  {
+    validQuntity = storeStock[validAmount].productStock.productAmount;
+  }
+  else
+  {
+    validQuntity = saleItems[inputAmount].productSold;
+  }
+  
+  return validQuntity;  
 }
 
 // Displaying the results of sale
@@ -304,6 +320,7 @@ double printSalesReport(const struct StockRecord storeStock[], struct SalesRecor
   while (i < numSaleItems)
   {
     valid = saleItems[i].productID - 1;
+    saleItems[i].productSold = getValidQuntity(storeStock, saleItems, valid, i);
     salesTotal = (storeStock[valid].productStock.productPrice * saleItems[i].productSold);
 
     printf("%16s %5.2lf %7.2lf\n", storeStock[valid].productName, storeStock[valid].productStock.productPrice, salesTotal);

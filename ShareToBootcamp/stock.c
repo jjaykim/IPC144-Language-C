@@ -29,7 +29,7 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus)
   int categoryflag = 1, loopflag = 0;
 
   // Set up to receive the data from a user
-  for (i = 0; i < max || loopflag == 1; i++)
+  for (i = 0; i < max && !loopflag; i++)
   {
     // receiving data 
     scanf("%d,%d,%lf,%d,%30[^\n]", &stockRecord[i].salesRecord.amout,
@@ -187,39 +187,17 @@ void printStockReport(const struct StockRecord* storeStock, int range)
   }
 }
 
-/*
-Calculating total price
-int getTotalPrice(const struct StockRecord* storeStock, int range, int inputID, int inputQun)
-{
-  // Variables:
-  int i;
-  int totalPrice;
-
-  // Set up to find the matched product ID
-  for (i = 0; i < range; i++)
-  {
-    // I'm not sure should I chage the product ID type from double to int..? 
-    if (storeStock[i].productId - inputID == 0)
-    {
-      totalPrice = storeStock[i].salesRecord.price * inputQun;
-    }
-  }
-
-  return totalPrice;
-}
-*/
-
 // Checking the valid product ID
 int findValidID(const struct StockRecord storeStock[], int range, int inputID)
 {
   int i = 0;
-  int loopflag = 0;
+  int loopflag = 1;
 
-  while (!loopflag)
+  while (loopflag)
   {
     if (inputID - storeStock[i].productId == 1)
     {
-      loopflag = 1;
+      loopflag = 0;
     }
     else
     {
@@ -251,7 +229,7 @@ int getTotalPrice(struct StockRecord *storeStock, int validID, int inputQun)
 // Avoid negative value when subtracting the quantity
 int getPositiveInt(struct StockRecord* storeStock, int validID, int inputQun)
 {
-  int convertNum;
+  int convertNum = 0;
 
   // Set up to make a zero value if quantity is less than zero
   if (storeStock[validID].salesRecord.amout - inputQun < 0)
@@ -283,7 +261,7 @@ int readSale(struct StockRecord storeStock[], int range, struct SalesRecord sale
   // Variables:
   int i = 0, validID;
   int inputID, inputQun;
-  int loopFlag = 0;
+  int loopFlag = 1;
 
   initPrice(saleItems, range);
 
@@ -296,7 +274,7 @@ int readSale(struct StockRecord storeStock[], int range, struct SalesRecord sale
     // Set up to check if a user want to exit or not
     if (inputID == 0)
     {
-      loopFlag = 1;
+      loopFlag = 0;
     }
     else
     {
@@ -325,7 +303,7 @@ int readSale(struct StockRecord storeStock[], int range, struct SalesRecord sale
 
       i++;
     }
-  } while (!loopFlag);
+  } while (loopFlag);
 
   // Return the count of total sales
   return i;
