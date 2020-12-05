@@ -263,6 +263,7 @@ int readSale(struct StockRecord storeStock[], int range, struct SalesRecord sale
   int inputID, inputQun;
   int loopFlag = 1;
 
+  // Set up to receive as a new 
   initPrice(saleItems, range);
 
   // Set up to receive the data from a user
