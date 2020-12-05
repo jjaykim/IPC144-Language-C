@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "final.h"
+#include "stock.h"
 //--------------------------------
 // Function Definitions
 //--------------------------------

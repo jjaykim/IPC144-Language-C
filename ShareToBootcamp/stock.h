@@ -1,3 +1,6 @@
+#define MAX_ITEMS_IN_SALE 14 // The total number of Items is 14
+#define NUM_CATS 7           // The total number of Category is 7
+
 //--------------------------------
 // Structure Types
 //--------------------------------
