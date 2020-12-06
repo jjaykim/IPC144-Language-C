@@ -359,8 +359,8 @@ double printSalesReport(struct StockRecord storeStock[], struct SalesRecord sale
 }
 
 // Sorting
-void getTopSellers(struct StockRecord storeStock[], int range, struct SalesRecord topSellers[], int topCount, int arrayvalue)
-{
-  int i, j;
+// void getTopSellers(struct StockRecord storeStock[], int range, struct SalesRecord topSellers[], int topCount, int arrayvalue)
+// {
+//   int i, j;
   
-  }
+//   }
