@@ -1,5 +1,5 @@
 #define MAX_ITEMS_IN_SALE 14 // The total number of Items is 14 
-#define NUM_CATS 7           // The total number of Category is 7
+#define NUM_CATS 7           // Total 2 times diplay Top 2 rank!
 
 //--------------------------------
 // Structure Types
@@ -19,14 +19,14 @@ struct StockRecord
 {
   struct ProductStock productStock;
   char productName[30];   // Name of a product
-  double productQuantity; // How many of a product is left
+  double amountSold;      // How many products are bought by the user
 };
 
 // Structure type SalesRecord declaration
 struct SalesRecord
 {
   int productID;   // ID of a product
-  int productSold; // How many of a product is sold
+  double productSold; // How many of a product is sold
 };
 
 //--------------------------------
@@ -43,22 +43,25 @@ int readStockItems(struct StockRecord stockRecord[], int max, int bonus);
 void centreText(int num, char symbol, char *title);
 
 // Displaying inventory status
-void printStockReport(const struct StockRecord *storeStock, int range);
+void printStockReport(const struct StockRecord* storeStock, int range);
 
 // Change the Category name form integer to Character
 void changeCate(int prodc, char cate[]);
 
 // Receiving a product ID to purchase from a user
-int readSale(struct StockRecord *storeStock, int range, struct SalesRecord saleItems[]);
+int readSale(struct StockRecord* storeStock, int range, struct SalesRecord saleItems[]);
 
 // Checking the valid product ID
 int findValidID(int inputID);
 
 // Avoid negative value when subtracting the quantity
-int getPositiveInt(struct StockRecord *storeStock, int validID, int inputQun);
+int getPositiveInt(struct StockRecord* storeStock, int validID, int inputQun);
 
 // Finding an empty slot
 int findEmptySpace(struct SalesRecord saleItems[]);
 
 // Displaying the results of sale
-double printSalesReport(const struct StockRecord storeStock[], struct SalesRecord saleItems[], int numSaleItems);
+double printSalesReport(struct StockRecord storeStock[], struct SalesRecord saleItems[], int numSaleItems);
+
+// Sorting
+void getTopSellers(struct StockRecord storeStock[], int range, struct SalesRecord topSellers[], int topCount, int category);

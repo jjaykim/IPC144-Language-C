@@ -188,13 +188,13 @@ void printStockReport(const struct StockRecord* storeStock, int range)
                                          storeStock[i].productStock.productAmount);
   }
 }
-
-// Checking the valid product ID
-int findValidID(int inputID)
-{
-  int i = inputID - 1;
-   return i;
-}
+// 잠깐 밑으로 옮김
+// // Checking the valid product ID
+// int findValidID(int inputID)
+// {
+//   int i = inputID - 1;
+//    return i;
+// }
 
 // Avoid negative value when subtracting the quantity
 int getPositiveInt(struct StockRecord* storeStock, int validID, int inputQun)
@@ -240,17 +240,16 @@ int findEmptySpace(struct SalesRecord saleItems[])
 int readSale(struct StockRecord* storeStock, int range, struct SalesRecord saleItems[])
 {
   // Variables:
-  int i = 0, validID;
-  int loopFlag = 0;
+  // int i = 0, validID;
+  int i = 0;
 
-  // // Set up to find an emmpty slot
-  // i = findEmptySpace(saleItems);
+  int loopFlag = 0;
 
   // Set up to receive the data from a user
   do
   {
     printf("Enter a product ID to purchase, and the quantity (0 to stop): ");
-    scanf("%d,%d", &saleItems[i].productID, &saleItems[i].productSold);
+    scanf("%d,%lf", &saleItems[i].productID, &saleItems[i].productSold);
 
     // Set up to check if a user want to exit or not
     if (saleItems[i].productID == 0)
@@ -260,26 +259,25 @@ int readSale(struct StockRecord* storeStock, int range, struct SalesRecord saleI
     else
     {
       // Set up to check if inputted product ID is valid or not
-      while (saleItems[i].productID < 0 || saleItems[i].productID > range
-    )
+      while (saleItems[i].productID < 0 || saleItems[i].productID > range)
       {
-        printf("Invalid Product - Enter a number between 0 and %d: ", range
-      );
-        scanf("%d,%d", &saleItems[i].productID, &saleItems[i].productSold);
+        printf("Invalid Product - Enter a number between 0 and %d: ", range);
+        scanf("%d,%lf", &saleItems[i].productID, &saleItems[i].productSold);
       }
 
       // Set up to check if inputted product quntity is valid or not
-      while (saleItems[i].productSold < 0.1 || saleItems[i].productSold > 100) // I cannot figure out the meaning of 0.1 and 100
+      while (saleItems[i].productSold < 0.10 || saleItems[i].productSold > 100) // I cannot figure out the meaning of 0.1 and 100
       {
         printf("Invalid quantity - Enter a number between 0.10 and 100.00: ");
-        scanf("%d,%d", &saleItems[i].productID, &saleItems[i].productSold);
+        scanf("%d,%lf", &saleItems[i].productID, &saleItems[i].productSold);
       }
 
-      // Finding the valid ID
-      validID = findValidID(saleItems[i].productID);
+      // print functiond에서 한번에 하려고 옮겨봄
+      // // Finding the valid ID
+      // validID = findValidID(saleItems[i].productID);
 
-      // Overwrite
-      storeStock[validID].productStock.productAmount = getPositiveInt(storeStock, validID, saleItems[i].productID);
+      // // Overwrite
+      // storeStock[validID].productStock.productAmount = getPositiveInt(storeStock, validID, saleItems[i].productID);
 
       i++;
     }
@@ -289,6 +287,7 @@ int readSale(struct StockRecord* storeStock, int range, struct SalesRecord saleI
   return i;
 }
 
+// To determine the exact quantity that users can buy
 int getValidQuntity(struct StockRecord storeStock[], struct SalesRecord saleItems[], int validAmount, int inputAmount)
 {
   int validQuntity = 0;
@@ -305,19 +304,33 @@ int getValidQuntity(struct StockRecord storeStock[], struct SalesRecord saleItem
   return validQuntity;  
 }
 
+// Checking the valid product ID
+int findValidID(int inputID)
+{
+  int i = inputID - 1;
+  return i;
+}
+
 // Displaying the results of sale
-double printSalesReport(const struct StockRecord storeStock[], struct SalesRecord saleItems[], int numSaleItems)
+double printSalesReport(struct StockRecord storeStock[], struct SalesRecord saleItems[], int numSaleItems)
 {
   // Variables:
   int i = 0;
   int valid = 0;
   double salesTotal = 0.0, totalPurchase = 0.0, tax = 0.0, totalPrice = 0.0;
 
-  puts("*********************** Seneca Groceries ***********************");
-  puts("================================================================");
+  centreText(70, '*', " Seneca Groceries ");
+  puts("");
+  centreText(70, '=', "");
+  puts("");
+  // Finding the valid ID
+  valid = findValidID(saleItems[i].productID);
 
-  // Set up to display the receipt
-  while (i < numSaleItems)
+  // Overwrite
+  storeStock[valid].productStock.productAmount = getPositiveInt(storeStock, valid, saleItems[i].productID);
+
+      // Set up to display the receipt
+      while (i < numSaleItems)
   {
     valid = saleItems[i].productID - 1;
     saleItems[i].productSold = getValidQuntity(storeStock, saleItems, valid, i);
@@ -344,3 +357,10 @@ double printSalesReport(const struct StockRecord storeStock[], struct SalesRecor
 
   return totalPrice - tax;
 }
+
+// Sorting
+void getTopSellers(struct StockRecord storeStock[], int range, struct SalesRecord topSellers[], int topCount, int arrayvalue)
+{
+  int i, j;
+  
+  }
