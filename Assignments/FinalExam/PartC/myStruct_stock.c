@@ -1,3 +1,7 @@
+// **********************************
+//        USING MY Struct
+// **********************************
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #define MAX_CATEGORY 7
@@ -6,7 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "stock.h"
+#include "myStruct_stock.h"
 //--------------------------------
 // Function Definitions
 //--------------------------------

@@ -1,3 +1,7 @@
+// **********************************
+//        USING GROUP Struct
+// **********************************
+
 #define MAX_ITEMS_IN_SALE 14 // The total number of Items is 14 
 #define NUM_CATS 7           // Total 2 times diplay Top 2 rank!
 

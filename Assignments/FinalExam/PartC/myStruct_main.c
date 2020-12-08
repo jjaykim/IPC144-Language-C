@@ -1,9 +1,13 @@
+// **********************************
+//        USING MY Struct
+// **********************************
+
 // main.c
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 
-#include "anotherStruct.h"
+#include "myStruct_stock.h"
 
 #define MAX_STOCK_ENTRIES 100
 

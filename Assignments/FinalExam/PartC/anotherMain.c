@@ -1,9 +1,13 @@
+// **********************************
+//        USING GROUP Struct
+// **********************************
+
 // main.c
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 
-#include "stockFinal.h"
+#include "anotherStruct.h"
 
 #define MAX_STOCK_ENTRIES 100
 
