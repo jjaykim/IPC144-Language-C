@@ -4,28 +4,28 @@
 //		Student Number: 126683200
 //		Email:          jjun10@myseneca.ca
 //		Section:        NNN
-//		Date:           December 3, 2020
+//		Date:           December 8, 2020
 //==============================================
 // Group Member 2:
 //		Name:           Jungjoo Kim
 //		Student Number: 162641195
 //		Email:          jkim594@myseneca.ca
 //		Section:        NNN
-//		Date:           December 3, 2020
+//		Date:           December 8, 2020
 //==============================================
 // Group Member 3:
 //		Name:           Jiwon Choi
 //		Student Number: 154292197
 //		Email:          jchoi152@myseneca.ca
 //		Section:        NNN
-//		Date:           December 3, 2020
+//		Date:           December 8, 2020
 //==============================================
 // Assignment:     Final Assessment
 // Part:           C
 //==============================================
 
-#define MAX_ITEMS_IN_SALE 14 // The total number of Items is 14 
-#define NUM_CATS 7           // The total number of Category is 7
+#define MAX_ITEMS_IN_SALE 100 // The total number of Items is 100
+#define NUM_CATS 7            // The total number of Category is 7
 
 // Structure type productStock declaration
 struct productStock {
@@ -56,58 +56,50 @@ struct SalesRecord {
 
 // clearKeyboard:
 void clearKeyboard(void); 
-// ----------------------------------
 
-// readStockItems://Jiwon
+// readStockItems:
 // Get user inputs for a product stock (including product name)
 int readStockItems(struct StockRecord stockRecord[], int maxEntry, int infoInProgram); 
 
-//errorMessage//Jiwon
+//errorMessage:
 // Shows the user an error message when the user inputs wrong data
 void stockErrorMessage(struct StockRecord stockRecord[], int index, int min, int max); 
-//---------------------------
 
-// centreText://Jiwon
+// centreText:
 // Displaying centre messages (including titles, lines)
 void centreText(int numCharacters, char symbol, char* centreMessage); 
-// ----------------------------
 
-// ======================================================
-// convertCategory (jungjoo)
+// convertCategory 
 // To convert the category number to its name (depending on the category number)
 void convertCategory(int productCategory, char changeCategory[]); 					
 
-// printStockReport:(jungjoo)
+// printStockReport:
 // To output the every inputted stock by the user
-void printStockReport(const struct StockRecord* stockRecord, int maxReport); 					
+void printStockReport(const struct StockRecord stockRecord[], int maxReport); 					
 
-// readSale:(jungjoo)
+// readSale:
 // To prompt the user how many or much of a product the user wants to buy
-int readSale(struct StockRecord StockRecord[], int maxReport, struct SalesRecord SalesRecord[]); 														
+int readSale(struct StockRecord stockRecord[], int maxReport, struct SalesRecord salesRecord[]); 														
 
-// restockProducts(jungjoo)
+// restockProducts
 // To calculate the remaining amount of products after the user decided to purhcase them
 // Restocking the stock of the products after the user bought
 void restockProducts(struct StockRecord stockRecord[], struct SalesRecord salesRecord[], int index, int maxOrder);					
-// ======================================================
 
-
-// printSalesReport: (Jason)
+// printSalesReport:
 // Outputting the the history of the user's purchases (including the subtotal, tax, and total)
-double printSalesReport(struct StockRecord stockRecord[], struct SalesRecord salesRecord[], int saleItems); 								
-// -----------------------------------
+double printSalesReport(const struct StockRecord stockRecord[], struct SalesRecord salesRecord[], int saleItems); 								
 
-// getTopSellers:   (Jason)
+// getTopSellers: 
 // Finding the products depending on category (=cat) inputted (from main) and store them in struct topSellers
 void getTopSellers(struct StockRecord stockRecord[], int maxReport, struct SalesRecord topSellers[], int topNumber, int cat); 
 
-// sortInformation: (Jason)
+// sortInformation: 
 // - Processes from end to beginning
 // Using the bubble sorting (from greatest to smalles amount of products)
 void sortInformation(struct SalesRecord salesRecord[], int max);
-// -----------------------------------
 
-// printTopSellers: (Jason)
+// printTopSellers:
 // To output the first set of a topSellers struct (depending on topNumber), from each category (=cat)
 void printTopSellers(const struct StockRecord stockRecord[], struct SalesRecord topSellers[], int topNumber, int cat); 
 

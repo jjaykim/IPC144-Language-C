@@ -4,21 +4,21 @@
 //		Student Number: 126683200
 //		Email:          jjun10@myseneca.ca
 //		Section:        NNN
-//		Date:           December 3, 2020
+//		Date:           December 8, 2020
 //==============================================
 // Group Member 2:
 //		Name:           Jungjoo Kim
 //		Student Number: 162641195
 //		Email:          jkim594@myseneca.ca
 //		Section:        NNN
-//		Date:           December 3, 2020
+//		Date:           December 8, 2020
 //==============================================
 // Group Member 3:
 //		Name:           Jiwon Choi
 //		Student Number: 154292197
 //		Email:          jchoi152@myseneca.ca
 //		Section:        NNN
-//		Date:           December 3, 2020
+//		Date:           December 8, 2020
 //==============================================
 // Assignment:     Final Assessment
 // Part:           C
@@ -137,7 +137,6 @@ void centreText(int numCharacters, char symbol, char* centreMessage) {
     }
 }
 
-
 // convertCategory:
 // To convert the category number to its name (depending on the category number)
 void convertCategory(int productCategory, char changeCategory[]) {
@@ -180,7 +179,7 @@ void convertCategory(int productCategory, char changeCategory[]) {
 
 // printStockReport:
 // To output the every inputted stock by the user
-void printStockReport(const struct StockRecord* stockRecord, int maxReport) {
+void printStockReport(const struct StockRecord stockRecord[], int maxReport) {
     
     // Variables:
     int i;
@@ -189,7 +188,6 @@ void printStockReport(const struct StockRecord* stockRecord, int maxReport) {
     puts("  ID                        Product        Category   Price Quantity  ");
     for(i = 0; i < maxReport; i++) {
        
-        char categoryName[30] = { '\0' };
         convertCategory(stockRecord[i].productStock.productCategory, categoryName);
         printf("%4d %30s %15s %7.2lf %8d\n", (i + 1), stockRecord[i].productName, categoryName, 
                                                       stockRecord[i].productStock.productPrice, 
@@ -230,14 +228,14 @@ int readSale(struct StockRecord stockRecord[], int maxReport, struct SalesRecord
 // restockProducts:
 // To calculate the remaining amount of products after the user decided to purhcase them
 // Restocking the stock of the products after the user bought
-void restockProducts(struct StockRecord stockRecord[],struct SalesRecord salesRecord[], int index, int maxReport) {
+void restockProducts(struct StockRecord stockRecord[], struct SalesRecord salesRecord[], int index, int maxReport) {
 
     // Variable:
     int indexRecord;
     int whileFlag = 1;
 
     // Infinite loop until the user inputted correct set of data
-    while (!whileFlag) {
+    while (whileFlag) {
         // Checking condition of productValue:
         if (salesRecord[index].productValue < 0 || salesRecord[index].productValue > maxReport) {
             printf("Invalid Product - Enter a number between 0 and %d: ", maxReport);
@@ -248,6 +246,7 @@ void restockProducts(struct StockRecord stockRecord[],struct SalesRecord salesRe
         else if (salesRecord[index].productSold < 0.10 || salesRecord[index].productSold > 100) {
             printf("Invalid quantity - Enter a number between 0.10 and 100.00: ");
             scanf("%d, %lf", &salesRecord[index].productValue, &salesRecord[index].productSold);
+
             clearKeyboard();
         }
         // If the set of data has been inputted correctly:
@@ -268,15 +267,15 @@ void restockProducts(struct StockRecord stockRecord[],struct SalesRecord salesRe
     }
     else {
         // Reduce the total amount of product by the amount the user wants to buy
-        stockRecord[indexRecord].productStock.productAmount -= (int)(salesRecord[index].productSold);
+        stockRecord[indexRecord].productStock.productAmount -= (salesRecord[index].productSold);  
         // Have the user to buy certain amount of products the user wants
-        stockRecord[indexRecord].amountSold = salesRecord[index].productSold;
+        stockRecord[indexRecord].amountSold += salesRecord[index].productSold;
     }
 }
 
 // printSalesReport:
 // Outputting the the history of the user's purchases (including the subtotal, tax, and total)
-double printSalesReport(struct StockRecord stockRecord[], struct SalesRecord salesRecord[], int saleItems) {
+double printSalesReport(const struct StockRecord stockRecord[], struct SalesRecord salesRecord[], int saleItems) {
 
     // Variable:
     int i, indexRecord;
@@ -294,7 +293,7 @@ double printSalesReport(struct StockRecord stockRecord[], struct SalesRecord sal
         // Calculating the index of the product in the salesRecord struct
         indexRecord = salesRecord[i].productValue - 1;
         // Calculating subtotal of a product
-        price = stockRecord[indexRecord].productStock.productPrice * stockRecord[indexRecord].amountSold;
+        price = stockRecord[indexRecord].productStock.productPrice * (int)stockRecord[indexRecord].amountSold;
 
         // Outputting the subtotal of a product (including its name and original price)
         printf("%30s %8.2lf %7.2lf\n", stockRecord[indexRecord].productName, stockRecord[indexRecord].productStock.productPrice, price);
@@ -330,14 +329,13 @@ void getTopSellers(struct StockRecord stockRecord[], int maxReport, struct Sales
         // Checking for condition for "productCategory"
         if (stockRecord[catCount].productStock.productCategory == (cat + 1)) {
             // Store information of the amount of a product sold in the stockRecord struct
-            topSellers[topCount].productSold = stockRecord[catCount].amountSold;
+            topSellers[topCount].productSold = (int)stockRecord[catCount].amountSold;
             // Storing category number in the productValue
             topSellers[topCount].productValue = (cat + 1);
             strcpy(topSellers[topCount].productName, stockRecord[catCount].productName);
             topCount++;        
         }
     }
-
     // Using the "sortInformation" function to sort
     sortInformation(topSellers, topCount);
 }
@@ -387,7 +385,7 @@ void printTopSellers(const struct StockRecord stockRecord[], struct SalesRecord 
          // If the product is within a category and has been sold at least once:
          if (topSellers[i].productValue == (cat +1) && topSellers[i].productSold != 0)
              // Output the ranking, the product name, and how many or much of a product has been sold
-            printf("%4d %29s %7.2lf\n", (i + 1), topSellers[i].productName, topSellers[i].productSold);
+            printf("%4d %29s %7.2lf\n", (i + 1), topSellers[i].productName, (double)topSellers[i].productSold);
          else
              // Output the rank and "<none>"
             printf("%4d                        <none>    0.00\n", (i + 1)); 
